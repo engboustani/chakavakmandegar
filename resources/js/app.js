@@ -45,7 +45,9 @@ Vue.component('main-slider', require('./components/MainSlider.vue').default);
 Vue.component('add-credit', require('./components/AddCredit.vue').default);
 
 // Admin Components
+Vue.component('sidebar-admin', require('./components/admin/SidebarNav.vue').default);
 Vue.component('users-list', require('./components/admin/UsersList.vue').default);
+Vue.component('events-list', require('./components/admin/EventsList.vue').default);
 
 Vue.component(
     'passport-clients',

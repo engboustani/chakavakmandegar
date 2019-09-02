@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+
 
 class Event extends Model
 {
@@ -33,11 +35,20 @@ class Event extends Model
         $event->save();
     }
 
+    protected $appends = ['eventtime_count'];
+
     /**
      * Get the eventtimes for the event.
      */
     public function eventtimes()
     {
         return $this->hasMany('App\Eventtime');
+    }
+
+    public function getEventtimeCountAttribute()
+    {
+        return DB::table('eventtimes')
+        ->where('event_id', $this->id)
+        ->count();
     }
 }

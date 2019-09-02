@@ -23,3 +23,19 @@
 .nav-signup:hover {
     text-decoration: none;
 }
+
+.el-menu-item-group {
+    background-color: #fff;
+    border-bottom: #dee2e6 solid 1px;
+    border-top: #dee2e6 solid 1px;
+}
+
+.el-submenu__icon-arrow {
+    right: unset;
+    left: 20px;
+}
+
+.el-button [class*="el-icon-"] + span {
+    margin-left: unset;
+    margin-right: 5px;
+}

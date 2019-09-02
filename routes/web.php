@@ -19,6 +19,9 @@ Route::get('/admin', function() {
 Route::get('/admin/users', function() {
     return view('admin/users');
 });
+Route::get('/admin/events', function() {
+    return view('admin/events');
+});
 
 Route::get('/event/{id}', 'ViewController@event');
 

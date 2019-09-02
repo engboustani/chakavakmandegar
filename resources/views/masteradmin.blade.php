@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>گیشه چکاوک ماندگار - @yield('title')</title>
+    <title>مدیریت گیشه چکاوک ماندگار - @yield('title')</title>
     <link rel="stylesheet" href="/css/app.css" type="text/css"/>
     <link rel="stylesheet" href="/css/admin.css" type="text/css"/>
 </head>
@@ -15,39 +15,10 @@
         <div class="be-wrapper" id="app">
                 <!-- As a link -->
                 <nav class="navbar navbar-dark bg-dark fixed-top">
-                    <a class="navbar-brand" href="#">مدیریت گیشه</a>
+                    <a class="navbar-brand" href="#">مدیریت گیشه چکاوک ماندگار</a>
                 </nav>
                 <div class="be-left-sidebar">
-                    <el-menu
-                        default-active="2"
-                        class="el-menu-vertical-demo"
-                        @open="handleOpen"
-                        @close="handleClose">
-                        <el-menu-item index="1">
-                            <i class="el-icon-menu"></i>
-                            <span>داشبورد</span>
-                        </el-menu-item>
-                        <el-menu-item index="2">
-                            <i class="el-icon-document"></i>
-                            <span>ایونت‌ها</span>
-                        </el-menu-item>
-                        <el-menu-item index="3">
-                            <i class="el-icon-user-solid"></i>
-                            <span>کاربران</span>
-                        </el-menu-item>
-                        <el-menu-item index="4">
-                            <i class="el-icon-s-ticket"></i>
-                            <span>تیکت‌ها</span>
-                        </el-menu-item>
-                        <el-menu-item index="5">
-                            <i class="el-icon-s-management"></i>
-                            <span>فاکتور‌ها</span>
-                        </el-menu-item>
-                        <el-menu-item index="6">
-                            <i class="el-icon-setting"></i>
-                            <span>تنظیمات</span>
-                        </el-menu-item>
-                      </el-menu>
+                    <sidebar-admin></sidebar-admin>
                 </div>
                 <div class="be-content">
                   @yield('content')

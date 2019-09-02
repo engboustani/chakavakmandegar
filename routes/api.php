@@ -53,3 +53,13 @@ Route::group([
         Route::get('list', 'UserController@getList');
     });  
 });
+
+Route::group([
+    'prefix' => 'event'
+], function () {
+    Route::group([
+        'middleware' => 'auth:api'
+    ], function() {
+        Route::get('list', 'EventController@getList');
+    });  
+});

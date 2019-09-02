@@ -34,6 +34,7 @@ export default {
             {label: 'نام', field: 'firstname', align: 'right'},
             {label: 'نام خانوادگی', field: 'lastname', align: 'right'},
             {label: 'شماره همراه', representedAs: this.farsiPhone, align: 'right'},
+            {label: 'اعتبار', representedAs: this.credit, align: 'right'},
         ],
         rows: window.rows,
         page: 1,
@@ -55,6 +56,9 @@ export default {
         constructor: shared.constructor,
         farsiPhone: function(row) {
             return this.constructor(row.phone);
+        },
+        credit: function(row) {
+            return this.constructor(`${row.credit} تومان`);
         }
     }
 }

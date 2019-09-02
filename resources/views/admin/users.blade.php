@@ -1,6 +1,6 @@
 @extends('masteradmin')
 
-@section('title', 'داشبورد')
+@section('title', 'کاربران')
 
 @section('content')
     <div class="page-head">

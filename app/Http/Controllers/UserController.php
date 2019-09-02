@@ -13,9 +13,7 @@ class UserController extends Controller
 
         return response()->json([
             'fullname' => sprintf('%s %s', $user->firstname, $user->lastname),
-            'credit' => DB::table('charges')
-                            ->where('user_id', $user->id)
-                            ->sum('amount'),
+            'credit' => $user->credit,
         ]);
     }
 

@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
+
 
 class User extends Authenticatable
 {
@@ -47,6 +49,8 @@ class User extends Authenticatable
 
     protected $dates = ['deleted_at'];
 
+    protected $appends = ['credit'];
+
     /**
      * Get all of the charges for the user.
      */
@@ -62,4 +66,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Payment');
     }
+
+    public function getCreditAttribute()
+    {
+        return DB::table('charges')
+        ->where('user_id', $this->id)
+        ->sum('amount');
+    }
+
 }

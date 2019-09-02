@@ -27,6 +27,7 @@
         "d3-seating-chart": "^2.1.0",
         "element-ui": "^2.11.1",
         "es6-promise": "^4.2.8",
+        "jalali-moment": "^3.3.3",
         "perfect-scrollbar": "^1.4.0",
         "persianjs": "^0.4.0",
         "tiny-slider": "^2.9.2",
