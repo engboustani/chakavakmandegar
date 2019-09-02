@@ -1,0 +1,25 @@
+.el-checkbox__label {
+    padding-left: 0;
+    padding-right: 10px;
+}
+
+.form-check {
+    padding-right: 0;
+}
+
+.nav-search {
+    border-radius: 25px;
+}
+
+.nav-login {
+    border-radius: 0 20px 20px 0 !important;
+    margin-left: 0 !important;
+}
+
+.nav-signup {
+    border-radius: 20px 0 0 20px !important;
+}
+
+.nav-signup:hover {
+    text-decoration: none;
+}
