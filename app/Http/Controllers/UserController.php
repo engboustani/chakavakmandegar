@@ -18,4 +18,9 @@ class UserController extends Controller
                             ->sum('amount'),
         ]);
     }
+
+    public function getList() {
+        $users = \App\User::all()->where('deleted_at', null);
+        return $users->makeHidden(['deleted_at', 'email_verified_token', 'phone_verified_token', 'created_at', 'updated_at'])->toJson();
+    }
 }
