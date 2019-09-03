@@ -12,7 +12,7 @@
                 <span>ایونت‌ها</span>
             </template>
             <el-menu-item-group>
-                <el-menu-item index="2-1">ایونت جدید</el-menu-item>
+                <el-menu-item index="2-1" v-on:click="newEvent()">ایونت جدید</el-menu-item>
                 <el-menu-item index="2-2" v-on:click="eventsList()">لیست ایونت‌ها</el-menu-item>
             </el-menu-item-group>
         </el-submenu>
@@ -70,6 +70,7 @@ export default {
     methods: {
         eventsList() {window.location.href = '/admin/events';},
         usersList() {window.location.href = '/admin/users';},
+        newEvent() {window.location.href = '/admin/event/new';},
     }
 }
 </script>

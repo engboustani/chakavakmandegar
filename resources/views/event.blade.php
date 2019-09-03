@@ -7,7 +7,7 @@
 
 <h1 class="pb-2">{{ $event->title }}</h1>
 <div class="content">
-  {{ $event->content }}
+  {!! $event->content !!}
 </div>
 <div class="row">
     <h3 class="col-sm-12 p-2"></h2>

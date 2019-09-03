@@ -61,5 +61,9 @@ Route::group([
         'middleware' => 'auth:api'
     ], function() {
         Route::get('list', 'EventController@getList');
+        Route::get('{id}', 'EventController@getEvent');
+        Route::post('new', 'EventController@newEvent');
+        Route::put('update', 'EventController@updateEvent');
+        Route::post('image-upload', 'GalleryController@imageUpload');
     });  
 });

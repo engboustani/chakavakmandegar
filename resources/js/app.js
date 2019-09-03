@@ -25,6 +25,8 @@ Vue.use(VueCookies)
 import DatatableFactory from 'vuejs-datatable/dist/vuejs-datatable.esm.js';
 Vue.use(DatatableFactory);
 
+import Editor from '@tinymce/tinymce-vue';
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -35,6 +37,8 @@ Vue.use(DatatableFactory);
 
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+Vue.component('editor', Editor);
+
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('seat-selector', require('./components/SeatSelector.vue').default);
@@ -48,6 +52,7 @@ Vue.component('add-credit', require('./components/AddCredit.vue').default);
 Vue.component('sidebar-admin', require('./components/admin/SidebarNav.vue').default);
 Vue.component('users-list', require('./components/admin/UsersList.vue').default);
 Vue.component('events-list', require('./components/admin/EventsList.vue').default);
+Vue.component('event', require('./components/admin/Event.vue').default);
 
 Vue.component(
     'passport-clients',

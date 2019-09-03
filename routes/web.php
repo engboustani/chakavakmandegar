@@ -13,15 +13,27 @@
 
 Route::get('/', 'ViewController@index');
 
-Route::get('/admin', function() {
-    return view('admin/dashboard');
+Route::group([
+    'prefix' => 'admin'
+], function () {
+    Route::get('/', function() {
+        return view('admin/dashboard');
+    });
+    Route::get('/users', function() {
+        return view('admin/users');
+    });
+    Route::get('/events', function() {
+        return view('admin/events');
+    });
+    Route::get('/event/new', function() {
+        return view('admin/event', ['id' => 0]);
+    });
+    Route::get('/event/{id}', function($id) {
+        return view('admin/event', ['id' => $id]);
+    });
 });
-Route::get('/admin/users', function() {
-    return view('admin/users');
-});
-Route::get('/admin/events', function() {
-    return view('admin/events');
-});
+
+
 
 Route::get('/event/{id}', 'ViewController@event');
 

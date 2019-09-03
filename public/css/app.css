@@ -9504,6 +9504,10 @@ a.text-dark:hover, a.text-dark:focus {
 .el-button [class*="el-icon-"] + span {
     margin-left: unset;
     margin-right: 5px;
+}
+
+.el-upload-list--picture-card .el-upload-list__item {
+    margin: 0 0 8px 8px;
 }.tns-outer {
   padding: 0 !important;
 }

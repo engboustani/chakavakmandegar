@@ -17,6 +17,7 @@ class CreateEventsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('content');
+            $table->text('summery');
             $table->boolean('indexed')->default(true);
             $table->timestamps();
         });

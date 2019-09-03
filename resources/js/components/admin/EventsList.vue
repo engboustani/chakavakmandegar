@@ -11,7 +11,21 @@
 
         <div class="row">
             <div id="table" class="col-xs-12 table-responsive">
-                <datatable :columns="columns" :data="getData" :filter-by="filter"></datatable>
+                <datatable :columns="columns" :data="getData" :filter-by="filter">
+                    <template slot-scope="{ row }">
+                        <tr>
+                            <td>{{ row.id }}</td>
+                            <td>{{ row.title }}</td>
+                            <td>{{ row.eventtime_count }}</td>
+                            <td><el-button type="success" icon="el-icon-check" v-if="row.indexed" circle></el-button><el-button type="info" icon="el-icon-close" v-if="!row.indexed" circle></el-button></td>
+                            <td>{{ farsiDatetime(row) }}</td>
+                            <td>
+                                <el-button type="danger" icon="el-icon-delete" v-on:click="deletee(row.id)" circle></el-button>
+                                <el-button type="primary" icon="el-icon-edit" v-on:click="edit(row.id)" circle></el-button>
+                            </td>
+                        </tr>
+                    </template>
+                </datatable>
             </div>
         </div>
 
@@ -30,10 +44,12 @@ import shared from '../../shared';
 export default {
     data: function () { return {
         columns: [
+            {label: 'شناسه', field: 'id', align: 'right'},
             {label: 'عنوان', field: 'title', align: 'right'},
             {label: 'تعداد سانس', field: 'eventtime_count', align: 'right'},
             {label: 'نمایش', representedAs: this.showEvent, align: 'right'},
             {label: 'تاریخ ایجاد', representedAs: this.farsiDatetime, align: 'right'},
+            {label: '', field: '', sortable: false },
         ],
         rows: window.rows,
         page: 1,
@@ -57,7 +73,27 @@ export default {
             return this.constructor(moment(row.created_at).locale('fa').format('YYYY/M/D H:m'));
         },
         showEvent: function(row) {
-            return row.indexed ? "<i class=\"el-icon-success\"></i>" : "<i class=\"el-icon-error\"></i>"
+            return row.indexed ? "فعال" : "غیرفعال"
+        },
+        edit(id) {
+            window.location.href = `/admin/event/${id}`;
+        },
+        deletee(id) {
+            this.$confirm('آیا مطمئن هستید که میخواهید ایونت را حذف کنید؟?', 'اخطار', {
+                    confirmButtonText: 'بله',
+                    cancelButtonText: 'بستن',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: 'Delete completed'
+                    });
+                }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: 'Delete canceled'
+                });          
+            });
         }
     }
 }
