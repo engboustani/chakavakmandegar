@@ -65,5 +65,16 @@ Route::group([
         Route::post('new', 'EventController@newEvent');
         Route::put('update', 'EventController@updateEvent');
         Route::post('image-upload', 'GalleryController@imageUpload');
+        Route::delete('delete', 'EventController@deleteEvent');
+    });  
+});
+
+Route::group([
+    'prefix' => 'eventtime'
+], function () {
+    Route::group([
+        'middleware' => 'auth:api'
+    ], function() {
+        Route::get('list', 'EventtimeController@getList');
     });  
 });

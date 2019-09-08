@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "@tinymce/tinymce-vue": "^3.0.1",
+        "chart.js": "^2.8.0",
         "d3-seating-chart": "^2.1.0",
         "element-ui": "^2.11.1",
         "es6-promise": "^4.2.8",
@@ -32,6 +33,7 @@
         "perfect-scrollbar": "^1.4.0",
         "persianjs": "^0.4.0",
         "tiny-slider": "^2.9.2",
+        "vue-chartjs": "^3.4.2",
         "vue-cookies": "^1.5.13",
         "vue-persian-digit": "0.0.1",
         "vue-timers": "^2.0.2",

@@ -16,10 +16,11 @@ class CreateEventsTable extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->text('content');
+            $table->longText('content');
             $table->text('summery');
             $table->boolean('indexed')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
 
     }

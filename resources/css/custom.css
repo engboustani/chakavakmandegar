@@ -43,3 +43,8 @@
 .el-upload-list--picture-card .el-upload-list__item {
     margin: 0 0 8px 8px;
 }
+
+.pagination > li.active a {
+    color: #fff;
+    background-color: #38376f;
+}

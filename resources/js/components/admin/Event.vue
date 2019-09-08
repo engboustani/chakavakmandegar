@@ -26,7 +26,7 @@
                 <div class="card">
                     <div class="card-body">
                         <el-upload
-                            action="https://jsonplaceholder.typicode.com/posts/"
+                            action="/api/event/image-upload"
                             list-type="picture-card"
                             :on-preview="handlePictureCardPreview"
                             :on-remove="handleRemove">
@@ -72,6 +72,18 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+                <label for="eventtimes">زمان‌ها</label>
+                <div class="card">
+                    <div class="card-body" v-if="!id">
+                        <small class="text-muted">برای ثبت زمان برای ایونت اول باید ذخیره سازی کنید</small>
+                    </div>
+                    <div class="card-body" v-else>
+                        <eventtime v-for="eventtime in eventtimes" v-bind:key="eventtime.id" :eventtime="eventtime"></eventtime>
+                        <eventtime></eventtime>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -79,8 +91,12 @@
 <script>
 const moment = require('jalali-moment');
 import shared from '../../shared';
+import eventtime from './EventtimeWidget';
 
 export default {
+    components: {
+        eventtime
+    },
     computed: {
         token : function(){ return this.$store.state.token }
     },
@@ -96,6 +112,7 @@ export default {
             updated_at: '',
             dialogImageUrl: '',
             dialogVisible: false,
+            eventtimes: [],
             imageUrl: ''
         }
     },
@@ -106,6 +123,7 @@ export default {
                 this.title = resp.data.title;
                 this.content = resp.data.content;
                 this.summery = resp.data.summery;
+                this.eventtimes = resp.data.eventtime;
                 this.created_at = this.constructor(moment(resp.data.created_at).locale('fa').format('YYYY/M/D H:m'));
                 this.updated_at = this.constructor(moment(resp.data.updated_at).locale('fa').format('YYYY/M/D H:m'));
             })
@@ -130,7 +148,7 @@ export default {
             const isLt2M = file.size / 1024 / 1024 < 2;
 
             if (!isJPG) {
-                this.$message.error('Avatar picture must be JPG format!');
+                this.$message.error('فایل عکس باید JPG باشد!');
             }
             if (!isLt2M) {
                 this.$message.error('اندازه عکس بیشتر از 2MB نمیتواند باشد!');
@@ -139,7 +157,8 @@ export default {
         },
         sendEvent() {
             if (!this.id) {
-                axios({url: '/api/event/new', data: {title: this.title, content: this.content, summery: this.summery}, method: 'POST' })
+                const {title, content, summery} = this;
+                axios({url: '/api/event/new', data: {title, content, summery}, method: 'POST' })
                 .then(resp => {
                     window.location.href = `/admin/event/${resp.data.id}`;
                 })
@@ -149,7 +168,8 @@ export default {
             }
             else
             {
-                axios({url: '/api/event/update', data: {id: this.id, title: this.title, content: this.content, summery: this.summery}, method: 'PUT' })
+                const {id, title, content, summery} = this
+                axios({url: '/api/event/update', data: {id, title, content, summery}, method: 'PUT' })
                 .then(resp => {
                     window.location.href = `/admin/event/${resp.data.id}`;
                 })

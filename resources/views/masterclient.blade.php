@@ -4,13 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>گیشه چکاوک ماندگار - @yield('title')</title>
+    <title>چکاوک ماندگار - @yield('title')</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-147395948-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-147395948-1');
+    </script>
+
     <link rel="stylesheet" href="/css/app.css">
 </head>
 <body dir="rtl">
   <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="/">گیشه چکاوک ماندگار</a>
+                <a class="navbar-brand" href="/">چکاوک ماندگار</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
@@ -21,7 +31,19 @@
                       <a class="nav-link" href="/">خانه</a>
                     </li>
                     <li class="nav-item">
+                      <a class="nav-link" href="/studio">استودیو</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/pelato">پلاتو</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/posts">پست‌ها</a>
+                    </li>
+                    <li class="nav-item">
                       <a class="nav-link" href="/shows">نمایش‌ها</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/contect-us">تماس‌با‌ما</a>
                     </li>
                   </ul>
                   <form class="form-inline my-2 my-lg-0">

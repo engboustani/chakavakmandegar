@@ -20,7 +20,7 @@
                             <td><el-button type="success" icon="el-icon-check" v-if="row.indexed" circle></el-button><el-button type="info" icon="el-icon-close" v-if="!row.indexed" circle></el-button></td>
                             <td>{{ farsiDatetime(row) }}</td>
                             <td>
-                                <el-button type="danger" icon="el-icon-delete" v-on:click="deletee(row.id)" circle></el-button>
+                                <el-button type="danger" icon="el-icon-delete" v-on:click="deletee(row)" circle></el-button>
                                 <el-button type="primary" icon="el-icon-edit" v-on:click="edit(row.id)" circle></el-button>
                             </td>
                         </tr>
@@ -78,22 +78,29 @@ export default {
         edit(id) {
             window.location.href = `/admin/event/${id}`;
         },
-        deletee(id) {
+        deletee(row) {
             this.$confirm('آیا مطمئن هستید که میخواهید ایونت را حذف کنید؟?', 'اخطار', {
                     confirmButtonText: 'بله',
                     cancelButtonText: 'بستن',
                     type: 'warning'
                 }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: 'Delete completed'
-                    });
+                    axios({url: '/api/event/delete', data: {id: row.id}, method: 'DELETE' })
+                        .then(resp => {
+                            this.$message({
+                                type: 'success',
+                                message: 'با موفقیت حذف شد'
+                            });
+                        })
+                        .catch(err => {
+                            this.$message({
+                                type: 'error',
+                                message: 'حذف این ایونت الان امکان پذیر نمی‌باشد'
+                            }); 
+                            console.log('Error: can\'t delete event!', err)
+                        })                
                 }).catch(() => {
-                this.$message({
-                    type: 'info',
-                    message: 'Delete canceled'
-                });          
-            });
+         
+                });
         }
     }
 }

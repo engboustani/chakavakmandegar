@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EventController extends Controller
 {
+    use SoftDeletes;
+
     public function getList()
     {
         $events = \App\Event::all();
-        return $events->makeHidden(['updated_at'])->toJson();
+        return $events->makeHidden(['updated_at', 'eventtime'])->toJson();
     }
 
     public function newEvent(Request $request)
@@ -48,4 +51,16 @@ class EventController extends Controller
             'id' => $request->id,
         ], 200);
     }
+
+    public function deleteEvent(Request $request)
+    {
+        $event = \App\Event::find($request->id);
+
+        $event->delete();
+
+        return response()->json([
+            'id' => $request->id,
+        ], 200);
+    }
+
 }

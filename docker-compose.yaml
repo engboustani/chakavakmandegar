@@ -3,22 +3,16 @@ services:
 
   #PHP Service
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
     image: engboustani/ticket
     container_name: app
     restart: unless-stopped
     tty: true
-    environment:
-      SERVICE_NAME: app
-      SERVICE_TAGS: dev
     working_dir: /var/www
-    volumes:
-      - ./:/var/www
-      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - app-network
+    volumes:
+      - ./:/var/www
+      - ./config/local.ini:/usr/local/etc/php/conf.d/local.ini
 
   #Nginx Service
   webserver:
@@ -29,35 +23,37 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    volumes:
-      - ./:/var/www
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - app-network
+    volumes:
+      - ./:/var/www
+      - ./config/nginx/conf.d/:/etc/nginx/conf.d/
 
   #MySQL Service
   db:
-    image: mysql:5.7.22
+    image: mariadb:latest
     container_name: db
+    hostname: db
     restart: unless-stopped
     tty: true
-    ports:
-      - "3306:3306"
+    expose:
+      - "3306"
     environment:
-      MYSQL_DATABASE: laravel
-      MYSQL_ROOT_PASSWORD: your_mysql_root_password
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
-    volumes:
-      - dbdata:/var/lib/mysql/
-      - ./mysql/my.cnf:/etc/mysql/my.cnf
+      MYSQL_DATABASE: chakavak
+      MYSQL_ROOT_PASSWORD: mandegar
+      MYSQL_USER: chakavak
+      MYSQL_PASSWORD: mandegar
     networks:
       - app-network
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./config/my.cnf:/etc/mysql/my.cnf
 
 #Docker Networks
 networks:
   app-network:
     driver: bridge
+
 #Volumes
 volumes:
   dbdata:

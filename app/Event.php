@@ -35,7 +35,7 @@ class Event extends Model
         $event->save();
     }
 
-    protected $appends = ['eventtime_count'];
+    protected $appends = ['eventtime', 'eventtime_count'];
 
     /**
      * Get the eventtimes for the event.
@@ -50,5 +50,10 @@ class Event extends Model
         return DB::table('eventtimes')
         ->where('event_id', $this->id)
         ->count();
+    }
+
+    public function getEventtimeAttribute()
+    {
+        return $this->eventtimes->makeHidden(['updated_at', 'created_at']);
     }
 }

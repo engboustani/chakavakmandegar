@@ -2,27 +2,17 @@
         <div class="autoHeight" id="autoHeight">
           <div>
             <div>
-              <img src="/img/gallery/img1.jpg" alt="" width="1600" height="500">
+              <img src="/img/gallery/slider1.jpg" alt="" width="910" height="500">
             </div>
           </div>
           <div>
             <div>
-              <img src="/img/gallery/img2.jpg" alt="" width="1600" height="500">
+              <img src="/img/gallery/slider2.jpg" alt="" width="910" height="500">
             </div>
           </div>
           <div>
             <div>
-              <img src="/img/gallery/img3.jpg" alt="" width="1600" height="500">
-            </div>
-          </div>
-          <div>
-            <div>
-              <img src="/img/gallery/img4.jpg" alt="" width="1600" height="500">
-            </div>
-          </div>
-          <div>
-            <div>
-              <img src="/img/gallery/img5.jpg" alt="" width="1600" height="500">
+              <img src="/img/gallery/slider3.jpg" alt="" width="910" height="500">
             </div>
           </div>
         </div>
