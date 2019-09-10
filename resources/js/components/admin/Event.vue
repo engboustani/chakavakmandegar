@@ -79,8 +79,8 @@
                         <small class="text-muted">برای ثبت زمان برای ایونت اول باید ذخیره سازی کنید</small>
                     </div>
                     <div class="card-body" v-else>
-                        <eventtime v-for="eventtime in eventtimes" v-bind:key="eventtime.id" :eventtime="eventtime"></eventtime>
-                        <eventtime></eventtime>
+                        <eventtimeWidget v-for="eventtime in eventtimes" v-bind:key="eventtime.id" :eventtime="eventtime"></eventtimeWidget>
+                        <eventtimeWidget></eventtimeWidget>
                     </div>
                 </div>
             </div>
@@ -91,11 +91,11 @@
 <script>
 const moment = require('jalali-moment');
 import shared from '../../shared';
-import eventtime from './EventtimeWidget';
+import eventtimeWidget from './EventtimeWidget';
 
 export default {
     components: {
-        eventtime
+        eventtimeWidget
     },
     computed: {
         token : function(){ return this.$store.state.token }

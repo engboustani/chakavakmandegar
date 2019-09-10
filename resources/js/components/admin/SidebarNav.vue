@@ -15,15 +15,23 @@
                 <el-menu-item index="2-1" v-on:click="newEvent()">ایونت جدید</el-menu-item>
                 <el-menu-item index="2-2" v-on:click="eventsList()">لیست ایونت‌ها</el-menu-item>
             </el-menu-item-group>
+            <el-submenu index="2-3">
+                <template slot="title">
+                    <i class="el-icon-time"></i>
+                    <span>زمان ایونت‌ها</span>
+                </template>
+                <el-menu-item index="2-3-1">زمان جدید</el-menu-item>
+                <el-menu-item index="2-3-2" v-on:click="eventtimesList()">لیست زمان‌ها</el-menu-item>
+            </el-submenu>
         </el-submenu>
         <el-submenu index="3">
             <template slot="title">
-                <i class="el-icon-time"></i>
-                <span>زمان ایونت‌ها</span>
+                <i class="el-icon-document"></i>
+                <span>مطالب</span>
             </template>
             <el-menu-item-group>
-                <el-menu-item index="3-1">زمان جدید</el-menu-item>
-                <el-menu-item index="3-2">لیست زمان‌ها</el-menu-item>
+                <el-menu-item index="3-1">پست‌ها</el-menu-item>
+                <el-menu-item index="3-2">صفحه‌ها</el-menu-item>
             </el-menu-item-group>
         </el-submenu>
         <el-submenu index="4">
@@ -69,6 +77,7 @@
 export default {
     methods: {
         eventsList() {window.location.href = '/admin/events';},
+        eventtimesList() {window.location.href = '/admin/eventtimes';},
         usersList() {window.location.href = '/admin/users';},
         newEvent() {window.location.href = '/admin/event/new';},
     }

@@ -54,6 +54,7 @@ Vue.component('users-list', require('./components/admin/UsersList.vue').default)
 Vue.component('events-list', require('./components/admin/EventsList.vue').default);
 Vue.component('event', require('./components/admin/Event.vue').default);
 Vue.component('eventtimes-list', require('./components/admin/EventtimesList.vue').default);
+Vue.component('eventtime', require('./components/admin/Eventtime.vue').default);
 
 Vue.component(
     'passport-clients',

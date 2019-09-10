@@ -34,6 +34,12 @@ Route::group([
     Route::get('/eventtimes', function() {
         return view('admin/eventtimes');
     });
+    Route::get('/eventtime/new', function() {
+        return view('admin/eventtime', ['id' => 0]);
+    });
+    Route::get('/eventtime/{id}', function($id) {
+        return view('admin/eventtime', ['id' => $id]);
+    });
 });
 
 

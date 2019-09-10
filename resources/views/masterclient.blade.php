@@ -17,9 +17,9 @@
 
     <link rel="stylesheet" href="/css/app.css">
 </head>
-<body dir="rtl">
+<body dir="rtl" style="padding-top: 58px;">
   <div id="app">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
                 <a class="navbar-brand" href="/">چکاوک ماندگار</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
@@ -53,43 +53,41 @@
                   </form>
                 </div>
               </nav>
-              <div class="container">
-                <div class="content">
     @yield('content')
-
-    <footer class="pt-4 my-md-5 pt-md-5 border-top">
-            <div class="row">
-              <div class="col-12 col-md">
-                <img class="mb-2" src="..." alt="..." width="24" height="24">
-                <small class="d-block mb-3 text-muted">© 2017-2018</small>
-              </div>
-              <div class="col-6 col-md">
-                <h5>ویژگی‌ها</h5>
-                <ul class="list-unstyled text-small">
-                  <li><a class="text-muted" href="#">نمایش‌ها</a></li>
-                  <li><a class="text-muted" href="#">بلیت‌ها</a></li>
-                  <li><a class="text-muted" href="#">فاکتور‌ها</a></li>
-                </ul>
-              </div>
-              <div class="col-6 col-md">
-                <h5>منابع</h5>
-                <ul class="list-unstyled text-small">
-                  <li><a class="text-muted" href="#">نحوه خرید</a></li>
-                  <li><a class="text-muted" href="#">چاپ بلیت</a></li>
-                </ul>
-              </div>
-              <div class="col-6 col-md">
-                <h5>درباره ما</h5>
-                <ul class="list-unstyled text-small">
-                  <li><a class="text-muted" href="#">تیم</a></li>
-                  <li><a class="text-muted" href="#">موقعیت</a></li>
-                  <li><a class="text-muted" href="#">قوانین</a></li>
-                </ul>
-              </div>
+    <div class="container">
+      <div class="content">
+        <footer class="pt-4 my-md-5 pt-md-5 border-top">
+          <div class="row">
+            <div class="col-12 col-md">
+              <img class="mb-2" src="..." alt="..." width="24" height="24">
+              <small class="d-block mb-3 text-muted">© 2017-2018</small>
             </div>
-          </footer>
-        </div>
-      
+            <div class="col-6 col-md">
+              <h5>ویژگی‌ها</h5>
+              <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">نمایش‌ها</a></li>
+                <li><a class="text-muted" href="#">بلیت‌ها</a></li>
+                <li><a class="text-muted" href="#">فاکتور‌ها</a></li>
+              </ul>
+            </div>
+            <div class="col-6 col-md">
+              <h5>منابع</h5>
+              <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">نحوه خرید</a></li>
+                <li><a class="text-muted" href="#">چاپ بلیت</a></li>
+              </ul>
+            </div>
+            <div class="col-6 col-md">
+              <h5>درباره ما</h5>
+              <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">تیم</a></li>
+                <li><a class="text-muted" href="#">موقعیت</a></li>
+                <li><a class="text-muted" href="#">قوانین</a></li>
+              </ul>
+            </div>
+          </div>
+        </footer>
+      </div>
     </div>
       <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <login-modal></login-modal>
