@@ -4,7 +4,7 @@
 
             <div class="form-group">
                 <label for="title">عنوان ایونت</label>
-                <h4>{{ event_title }}</h4>
+                <h4 class="pb-3">{{ event_title }}</h4>
             </div>
             <form>
                 <div class="form-row">
@@ -136,7 +136,38 @@
             </form>
         </div>
         <div class="col-4">
-
+            <div class="form-group">
+                <label for="pictures">عمومی</label>
+                <div class="card">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-row">
+                                <div class="col-8">
+                                    <label for="full_price">قیمت کل صندلی‌ها</label>
+                                    <input type="text" class="form-control" id="full_price">
+                                </div>
+                                <div class="col">
+                                    <el-button type="primary" round>اعمال</el-button>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <label for="full_price">فعال</label>
+                                    <el-switch></el-switch>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="pictures">صندلی</label>
+                <div class="card">
+                    <div class="card-body">
+                        <small>یک صندلی را انتخاب کنید</small>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -147,6 +178,9 @@ import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
 const moment = require('jalali-moment');
 
 export default {
+    props: {
+        id: Number
+    },
     data: function() {
         return{
             event_title: '',
@@ -169,6 +203,22 @@ export default {
                 console.log(e.selection); // All current selections               
             }
         });
+        if (this.id != 0) {
+            axios({url: `/api/eventtime/${this.id}`, method: 'GET' })
+            .then(resp => {
+                this.event_title = resp.data.event_title;
+                this.startDate = moment(resp.data.start).locale('fa').format('YYYY/MM/DD');
+                this.startTime = moment(resp.data.start).locale('fa').format('HH:mm');
+                this.endDate = moment(resp.data.end).locale('fa').format('YYYY/MM/DD');
+                this.endTime = moment(resp.data.end).locale('fa').format('HH:mm');
+                this.limitDate = moment(resp.data.deadline).locale('fa').format('YYYY/MM/DD');
+                this.limitTime = moment(resp.data.deadline).locale('fa').format('HH:mm');
+            })
+            .catch(err => {
+                console.log('Error: can\'t make a new event!', err)
+            })
+        }
+
     },    
     components: {
         datePicker: VuePersianDatetimePicker,
@@ -205,7 +255,7 @@ svg {
 }
 
 [seat] {
-  fill: #efefef;
+  fill: #e0e0e0;
 }
 
 [seat][locked] {

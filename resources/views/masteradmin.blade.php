@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>مدیریت گیشه چکاوک ماندگار - @yield('title')</title>
+    <title>مدیریت چکاوک ماندگار - @yield('title')</title>
     <link rel="stylesheet" href="/css/app.css" type="text/css"/>
     <link rel="stylesheet" href="/css/admin.css" type="text/css"/>
 </head>
@@ -15,7 +15,7 @@
         <div class="be-wrapper" id="app">
                 <!-- As a link -->
                 <nav class="navbar navbar-dark bg-dark fixed-top">
-                    <a class="navbar-brand" href="#">مدیریت گیشه چکاوک ماندگار</a>
+                    <a class="navbar-brand" href="#">مدیریت چکاوک ماندگار</a>
                 </nav>
                 <div class="be-left-sidebar">
                     <sidebar-admin></sidebar-admin>

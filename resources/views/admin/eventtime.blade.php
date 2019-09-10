@@ -26,6 +26,6 @@
         
     @endif
     <div class="main-content container-fluid">
-        <eventtime></eventtime>
+    <eventtime id="{{$id}}"></eventtime>
     </div>
 @endsection

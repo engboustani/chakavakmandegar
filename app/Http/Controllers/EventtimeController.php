@@ -12,4 +12,11 @@ class EventtimeController extends Controller
 
         return $eventtimes->makeHidden(['updated_at', 'created_at'])->toJson();
     }
+
+    public function getEventtime($id)
+    {
+        $eventtime = \App\Eventtime::find($id);
+
+        return $eventtime->toJson();
+    }
 }

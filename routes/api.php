@@ -76,5 +76,6 @@ Route::group([
         'middleware' => 'auth:api'
     ], function() {
         Route::get('list', 'EventtimeController@getList');
+        Route::get('{id}', 'EventtimeController@getEventtime');
     });  
 });

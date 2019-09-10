@@ -60,7 +60,8 @@
           <div class="row">
             <div class="col-12 col-md">
               <img class="mb-2" src="..." alt="..." width="24" height="24">
-              <small class="d-block mb-3 text-muted">© 2017-2018</small>
+              <small class="d-block mb-3 text-muted">چکاوک ماندگار© 2017-2018</small>
+              <small class="d-block mb-3 text-muted">طراحی و پیاده‌سازی حکیم‌رایانه</small>
             </div>
             <div class="col-6 col-md">
               <h5>ویژگی‌ها</h5>
