@@ -166,4 +166,8 @@ class ViewController extends Controller
         return view('printticket');
     }
 
+    public function paymentfailed()
+    {
+        return view('paymentfailed');
+    }
 }

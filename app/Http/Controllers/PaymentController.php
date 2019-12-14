@@ -70,9 +70,9 @@ class PaymentController extends Controller
             $payment->save();
             $payment->chargeUser();
 
-            return redirect("/payfactor/{$factor_id}");
+            return redirect("/payfactor/{$factor_id}?gosign=1");
         } catch (VerifyException $e) {
-            return redirect("/payfactor/{$factor_id}");
+            return redirect("/paymentfailed");
         }
     }
 
