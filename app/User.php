@@ -7,17 +7,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Laravel\Passport\HasApiTokens;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens;
-    use SoftDeletes, EntrustUserTrait {
-        SoftDeletes::restore insteadof EntrustUserTrait;
-        EntrustUserTrait::restore insteadof SoftDeletes;
-    }
+    use Notifiable, HasApiTokens, EntrustUserTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -25,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstname', 'lastname', 'phone', 'email', 'password'
+        'firstname', 'lastname', 'email', 'phone', 'iranid', 'password'
     ];
 
     /**
@@ -49,14 +44,14 @@ class User extends Authenticatable
 
     protected $dates = ['deleted_at'];
 
-    protected $appends = ['credit'];
+    protected $appends = ['credit', 'fullname'];
 
     /**
      * Get all of the charges for the user.
      */
     public function charges()
     {
-        return $this->hasMany('App\Charge');
+        return $this->hasMany('App\Charge', 'user_id');
     }
 
     /**
@@ -64,7 +59,12 @@ class User extends Authenticatable
      */
     public function payments()
     {
-        return $this->hasMany('App\Payment');
+        return $this->hasMany('App\Payment', 'user_id');
+    }
+
+    public function courses()
+    {
+        return $this->belongsToMany('App\Course', 'course_user');
     }
 
     public function getCreditAttribute()
@@ -72,6 +72,11 @@ class User extends Authenticatable
         return DB::table('charges')
         ->where('user_id', $this->id)
         ->sum('amount');
+    }
+
+    public function getFullnameAttribute()
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 
 }

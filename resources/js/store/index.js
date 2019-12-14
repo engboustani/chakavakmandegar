@@ -78,6 +78,7 @@ export default new Vuex.Store({
                 })
                 .catch(err => {
                     commit('auth_error', err)
+
                     reject(err)
                 })
             })
@@ -94,6 +95,11 @@ export default new Vuex.Store({
         },
         auth_error(state) {
             state.status = 'error'
+            localStorage.removeItem('token')
+            // remove the axios default header
+            delete axios.defaults.headers.common['Authorization']
+            state.status = ''
+            state.token = ''
         },
         logout(state) {
             state.status = ''

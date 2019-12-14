@@ -9526,10 +9526,52 @@ ul.el-menu li.el-submenu ul.el-menu li.el-submenu ul.el-menu {
 .masthead {
     height: 100vh;
     min-height: 500px;
-    background-image: url('/img/header.jpg');
+}
+
+.zoomheader {
+    position: relative;
+    overflow: hidden;  
     background-size: cover;
-    background-position: 50%;
+    background-position: center center;
     background-repeat: no-repeat;
+    background-color:#000;
+    transition: all 0.5s ease;
+}
+
+.zoomheader div {
+    position: relative;
+    z-index: 1;
+}
+
+.zoom-in::after,
+.zoom-out::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: inherit;
+  background-size: cover;
+  transform-origin: center;
+  transition: transform 0.4s ease-in-out;
+}
+
+.zoom-in:focus::after, .zoom-in:hover::after {
+  transform: scale(1.05);
+}
+  
+.studiohead
+{
+    background-image: url('/img/header.jpg');
+}
+
+.theaterhead {
+    background-image: url('/img/header-theater.jpg');
+}
+
+.signuphome {
+    background-image: url('/img/signup-home.jpg');
 }
 
 .eventhead {
@@ -9541,8 +9583,8 @@ ul.el-menu li.el-submenu ul.el-menu li.el-submenu ul.el-menu {
 }
 
 .logo {
-    width: 250px;
-    height: auto;
+    width: auto;
+    height: 200px;
 }
 
 .white {
@@ -9556,7 +9598,7 @@ ul.el-menu li.el-submenu ul.el-menu li.el-submenu ul.el-menu {
   }
 
 .black-background {
-    background-color: #0000006e;
+    background-color: #0009;
 }
 
 /* title styles */
@@ -9627,7 +9669,47 @@ ul.el-menu li.el-submenu ul.el-menu li.el-submenu ul.el-menu {
 
 .poster {
     height: 200px;
-}.tns-outer {
+}
+
+section {
+    box-shadow: rgb(0, 0, 0) 0px 0px 21px inset;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+header {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.el-message-box {
+    text-align: right;
+}
+
+.el-message-box__headerbtn {
+    right: unset;
+    left: 15px;
+}
+
+.el-message-box__btns {
+    text-align: left;
+}
+
+.el-message-box__status + .el-message-box__message {
+    padding-right: 36px;
+    padding-left: 12px;
+}
+
+.header-avatar {
+    width: auto;
+    height: 178px;
+    display: block;
+    min-width: 178px;
+}
+
+.tns-outer {
   padding: 0 !important;
 }
 

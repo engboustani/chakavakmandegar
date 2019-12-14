@@ -48,10 +48,67 @@ class PaymentController extends Controller
             $payment->token = $payir->token;
             $payment->verified_at = Carbon::now()->toDateTimeString();
             $payment->save();
+            $payment->chargeUser();
 
             return redirect("/shop/15");
         } catch (VerifyException $e) {
-            throw $e;
+            return redirect("/shop/15?paymentfailed=1");
         }
+    }
+
+    public function payirVerifyFactor(Request $request, $factor_id)
+    {
+        $payir = new PayirPG();
+        $payir->token = $request->token; // Pay.ir returns this token to your redirect url
+
+        try {
+            $verify = $payir->verify(); // returns verify result from pay.ir like (transId, cardNumber, ...)
+            $payment = \App\Payment::where('token', $payir->token)->first();
+            $payment->description = sprintf('شارژ حساب توسط کارت %s برای فاکتور %u', $verify["cardNumber"], $factor_id);
+            $payment->token = $payir->token;
+            $payment->verified_at = Carbon::now()->toDateTimeString();
+            $payment->save();
+            $payment->chargeUser();
+
+            return redirect("/payfactor/{$factor_id}");
+        } catch (VerifyException $e) {
+            return redirect("/payfactor/{$factor_id}");
+        }
+    }
+
+    public function payirVerifyCourse(Request $request, $course_id)
+    {
+        $payir = new PayirPG();
+        $payir->token = $request->token; // Pay.ir returns this token to your redirect url
+
+        try {
+            $verify = $payir->verify(); // returns verify result from pay.ir like (transId, cardNumber, ...)
+            $payment = \App\Payment::where('token', $payir->token)->first();
+            $payment->description = sprintf('شارژ حساب توسط کارت %s برای %s', $verify["cardNumber"], $payment->description);
+            $payment->token = $payir->token;
+            $payment->verified_at = Carbon::now()->toDateTimeString();
+            $payment->save();
+            $payment->chargeUser();
+
+            return redirect("/course/{$course_id}?gosign=1");
+        } catch (VerifyException $e) {
+            return redirect("/course/{$course_id}?error=1");
+        }
+    }
+
+    public function getLast5()
+    {
+        return \App\Payment::latest()->take(5)->get()->makeVisible(['username'])->makeHidden(['submited_by', 'factor_id', 'token', 'verified_at', 'updated_at', 'user'])->toJson();
+    }
+
+    public function getList()
+    {
+        return \App\Payment::latest()->get()->makeVisible(['username'])->makeHidden(['submited_by', 'factor_id', 'token', 'updated_at', 'user'])->toJson();
+    }
+
+    public function getListUser()
+    {
+        $userid = Auth::id();
+        return \App\Payment::where('user_id', $userid)->latest()->get()->makeHidden(['submited_by', 'factor_id', 'token', 'updated_at', 'user', 'username'])->toJson();
     }
 }

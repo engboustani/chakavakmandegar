@@ -24,7 +24,6 @@ class CreatePagesTable extends Migration
             $table->foreign('auther_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->integer('header_id')->unsigned()->nullable();
-            $table->foreign('header_id')->references('id')->on('media');
             $table->timestamps();
         });
     }

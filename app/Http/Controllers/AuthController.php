@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Carbon\Carbon;
 use App\User;
+use App\Rules\Iranian;
+use App\Rules\IranPhone;
 
 class AuthController extends Controller
 {
     //
+    use AuthenticatesUsers;
+
     /**
      * Create user
      *
@@ -25,21 +30,26 @@ class AuthController extends Controller
         $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'required|string|max:11|unique:users',
+            'iranid' => ['required', 'string', 'unique:users', new Iranian],
+            'phone' => ['required', 'string', 'unique:users', new IranPhone],
             'password' => 'required|string|confirmed',
-            'captcha' => 'required|captcha',
+            'captcha' => 'required|captcha_api:' . $request->ckey
         ]);
 
         $user = new User([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
-            'email' => $request->email,
+            'iranid' => $request->iranid,
             'phone' => $request->phone,
             'password' => Hash::make($request->password)
         ]);
 
         $user->save();
+
+        $role = \App\Role::where('name', 'client')->first();
+        $user->attachRole($role);
+
+        // \Ipecompany\Smsirlaravel::send(['با سلام! شما با موفقیت در چکاوک ماندگار ثبت نام کردید.'],[$user->phone]);
 
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
@@ -74,15 +84,15 @@ class AuthController extends Controller
             'remember_me' => 'boolean'
         ]);
 
-        $login_type = preg_match('/^[0-9]{11}+$/', $request->input('login'))
+        $login_type = preg_match('/^09[0-9]{9}$/', $request->input('login'))
             ? 'phone' 
-            : 'email';
+            : 'iranid';
 
         $request->merge([
             $login_type => $request->input('login')
         ]);
         
-        if(!Auth::attempt($request->only($login_type, 'password')))
+        if(!Auth::attempt($request->only($login_type, 'password'), $request->remember_me))
             return response()->json([
                 'message' => 'Unauthorized'
             ], 401);
@@ -114,6 +124,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $request->user()->token()->revoke();
+        Auth::logout();
         return response()->json([
             'message' => 'Successfully logged out'
         ]);

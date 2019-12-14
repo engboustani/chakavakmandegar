@@ -30,7 +30,7 @@ export default {
     data: function () { return {
         columns: [
             {label: 'شناسه', field: 'id', align: 'right', sortable: true, filterable: false},
-            {label: 'ایمیل', field: 'email', headerClass: 'class-in-header second-class', align: 'right'},
+            {label: 'کد ملی', representedAs: this.farsiIranID, headerClass: 'class-in-header second-class', align: 'right'},
             {label: 'نام', field: 'firstname', align: 'right'},
             {label: 'نام خانوادگی', field: 'lastname', align: 'right'},
             {label: 'شماره همراه', representedAs: this.farsiPhone, align: 'right'},
@@ -54,6 +54,9 @@ export default {
             }.bind(this));
         },
         constructor: shared.constructor,
+        farsiIranID: function(row) {
+            return this.constructor(row.iranid);
+        },
         farsiPhone: function(row) {
             return this.constructor(row.phone);
         },

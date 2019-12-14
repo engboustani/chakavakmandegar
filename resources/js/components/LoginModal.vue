@@ -1,35 +1,67 @@
 <template>
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">ورود</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="بستن">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="login">نام‌کاربری یا شماره‌همراه</label>
-                    <input type="input" class="form-control" id="login" aria-describedby="emailHelp" v-model="login" placeholder="Username or Phonenumber">
+        <form  v-on:submit.prevent="loginButton">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ورود</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="بستن">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="form-group">
-                    <label for="password">رمز عبور</label>
-                    <input type="password" class="form-control" id="password" v-model="password" placeholder="Password">
+                <div class="modal-body">
+                    <div class="form-group" :class="{ 'form-group--error': $v.login.$error }">
+                        <label for="login">کدملی یا شماره‌همراه</label>
+                        <input type="input" class="form-control" id="login" aria-describedby="emailHelp" v-model.lazy="$v.login.$model" placeholder="Username or Phonenumber">
+                    </div>
+                    <div class="error" v-if="!$v.login.required">* این فیلد باید پر شود</div>
+                    <div class="error" v-if="!$v.login.login">* کدملی یا شماره‌همراه خود را وارد کنید.</div>
+                    <div class="form-group" :class="{ 'form-group--error': $v.password.$error }">
+                        <label for="password">رمز عبور</label>
+                        <input type="password" class="form-control" id="password" v-model.lazy="$v.password.$model" placeholder="Password">
+                    </div>
+                    <div class="error" v-if="!$v.password.required">* این فیلد باید پر شود</div>
+                    <div class="form-group form-check">
+                        <el-checkbox label="مرا به خاطر بسپار" name="type" v-model="remember_me" id="remember_me"></el-checkbox>
+                    </div>
                 </div>
-                <div class="form-group form-check">
-                    <el-checkbox label="مرا به خاطر بسپار" name="type" v-model="remember_me" id="remember_me"></el-checkbox>
+                <div class="modal-footer">
+                    <el-button type="info" data-dismiss="modal" round>بستن</el-button>
+                    <el-button type="primary" round native-type="submit" :loading="loading" :disabled="$v.$invalid">ورود</el-button>
                 </div>
             </div>
-            <div class="modal-footer">
-                <el-button type="info" round>بستن</el-button>
-                <el-button type="primary" round v-on:click="loginButton()" :loading="loading">ورود</el-button>
-            </div>
-        </div>
+        </form>
     </div>
 </template>
 
 <script>
+import { validationMixin } from 'vuelidate'
+import { required, email, helpers, or } from 'vuelidate/lib/validators'
+const phone = helpers.regex('login', RegExp("09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}"))
+const iranID = (value) => {
+    if (!/^\d{10}$/.test(value)
+|| value=='0000000000'
+|| value=='1111111111'
+|| value=='2222222222'
+|| value=='3333333333'
+|| value=='4444444444'
+|| value=='5555555555'
+|| value=='6666666666'
+|| value=='7777777777'
+|| value=='8888888888'
+|| value=='9999999999')
+        return false;
+    var check = parseInt(value[9]);
+    var sum = 0;
+    var i;
+    for (i = 0; i < 9; ++i) {
+        sum += parseInt(value[i]) * (10 - i);
+    }
+    sum %= 11;
+    return (sum < 2 && check == sum) || (sum >= 2 && check + sum == 11);
+}
+
 export default {
+    mixins: [validationMixin],
     data: function() {
         return {
             login: '',
@@ -42,12 +74,32 @@ export default {
         loginButton: function() {
             this.loading = true;
             const { login, password, remember_me} = this;
-            this.$store.dispatch('login', { login, password, remember_me }).then(() => {
+            this.$v.$touch()
+            if (this.$v.$invalid) {
+                this.$notify.error({
+                    title: 'خطا',
+                    message: 'فیلدها مشکل دارد',
+                    type: 'error'
+                });
                 this.loading = false;
-                window.location.reload();
-            })
+            } else {
+                this.$store.dispatch('login', { login, password, remember_me }).then(() => {
+                    this.loading = false;
+                    window.location.reload();
+                })
+            }
         }
+    },
+    validations: {
+        password: {
+            required,
+        },
+        login: {
+            required,
+            login: or(iranID, phone)
+        },
     }
+
 }
 </script>
 

@@ -12,13 +12,35 @@ class Eventtime extends Model
      */
     public function event()
     {
-        return $this->belongsTo('App\Event', 'id');
+        return $this->belongsTo('App\Event', 'event_id');
     }
 
     protected $appends = ['event_title'];
+    protected $hidden = ['seats', 'tickets', 'discounts', 'event'];
 
     public function getEventTitleAttribute()
     {
-        return \App\Event::find($this->event_id)->title;
+        return $this->event->title;
     }
+
+    public function seats()
+    {
+        return $this->hasMany('App\Seat', 'eventtime_id');
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany('App\Ticket', 'eventtime_id');
+    }
+
+    public function seat($number)
+    {
+        return $this->seats()->where('number', $number)->first();
+    }
+
+    public function discounts()
+    {
+        return $this->hasMany('App\Discount');
+    }
+
 }

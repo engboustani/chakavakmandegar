@@ -15,25 +15,11 @@ class CreateFactorsTable extends Migration
     {
         Schema::create('factors', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('seat_id')->unsigned();
-            $table->foreign('seat_id')->references('id')->on('seats')
-                ->onUpdate('cascade')->onDelete('cascade');
-
+            $table->integer('user_id')->unsigned();
+            $table->integer('discount_id')->unsigned()->nullable();
+            $table->integer('paid_by')->unsigned()->nullable();
             $table->timestamps();
         });
-
-        Schema::create('factor_ticket', function (Blueprint $table) {
-            $table->integer('factor_id')->unsigned();
-            $table->integer('ticket_id')->unsigned();
-
-            $table->foreign('factor_id')->references('id')->on('factors')
-                ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('ticket_id')->references('id')->on('tickets')
-                ->onUpdate('cascade')->onDelete('cascade');
-
-            $table->primary(['factor_id', 'ticket_id']);
-        });
-
     }
 
     /**
@@ -44,6 +30,5 @@ class CreateFactorsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('factors');
-        Schema::dropIfExists('factor_ticket');
     }
 }

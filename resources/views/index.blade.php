@@ -4,53 +4,33 @@
 
 @section('content')
   <!-- Header - set the background image for the header in the line below -->
-  <header class="masthead py-5">
-      <div class="container h-100">
-        <div class="row h-100 align-items-center">
-          <div class="col-12 text-right">
-            <img src="/img/logo.svg" class="rounded img-fluid d-block ml-auto logo shadow-svg mb-3" alt="...">
-            <h1 class="font-weight-light white home-title font-weight-bold"><span class="p-2"><span class="black-background">استودیو چکاوک ماندگار</span></span></h1>
-            <p class="lead white home-title font-weight-bold"><span class="p-2"><span class="black-background">اولین و تخصصی ترین استودیو نیشابور</span></span></p>
+      <div class="row align-items-center">
+          <div class="col-sm-6 text-right zoomheader vh-100 px-3 align-items-center studiohead zoom-in">
+            <div class="row mt-5 px-3" style="display: block;">
+              <img src="/img/logo.svg" class="rounded img-fluid d-block ml-auto logo shadow-svg mb-3 mr-5" alt="...">
+              <h1 class="font-weight-light white home-title font-weight-bold mr-5"><span class="p-2"><span class="black-background">استودیو چکاوک ماندگار</span></span></h1>
+              <p class="lead white home-title font-weight-bold mr-5"><span class="p-2"><span class="black-background">اولین و تخصصی ترین استودیو نیشابور</span></span></p>
+              <p class=" mr-5"><a class="btn btn-light" href="/studio" role="button">بیشتر</a></p>    
+            </div>
           </div>
+          <div class="col-sm-6 text-right zoomheader vh-100 px-3 align-items-center theaterhead zoom-in">
+              <div class="row mt-5 px-3" style="display: block;">
+                <img src="/img/pelato.svg" class="rounded img-fluid d-block ml-auto logo shadow-svg mb-3 mr-5" alt="...">
+                <h1 class="font-weight-light white home-title font-weight-bold mr-5"><span class="p-2"><span class="black-background">پلاتو چکاوک ماندگار</span></span></h1>
+                <p class="lead white home-title font-weight-bold mr-5"><span class="p-2"><span class="black-background">اولین سالن نمایش اختصاصی نیشابور</span></span></p>
+                <p class=" mr-5"><a class="btn btn-light" href="/pelato" role="button">بیشتر</a></p>
+              </div>
+          </div>
+      </div>
+    <div class="row align-items-center">
+      <div class="col-sm-12 text-center zoomheader align-items-center signuphome zoom-in">
+        <div class="row my-5" style="display: block;">
+          <h3 class="font-weight-light white home-title font-weight-bold"><span class="p-2"><span class="black-background">ثبت نام کنید</span></span></h3>
+          <p class="lead white home-title font-weight-bold"><span class="p-2"><span class="black-background">با ثبت‌نام در سایت چکاوک ماندگار از اخرین اخبار آگاه شوید و تخفیف بگیرید</span></span></p>
+          <p><a class="btn btn-light" href="/signup" role="button">ثبت نام</a></p>    
         </div>
       </div>
-  </header>
-
-        <div class="container">
-          <div class="content">
-            <h1 class="pb-2 pt-4">نمایش‌ها</h1>
-            <div class="row">
-                @foreach ($events as $event)
-                <div class="col-sm-4 p-2">
-                  <div class="card">
-                    <img src="/img/gallery/img{{ $event->id }}.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">{{ $event->title }}</h5>
-                      <p class="card-text">{{ str_limit($event->summery, $limit = 60, $end = '...') }}</p>
-                      <a href="/event/{{ $event->id }}" class="el-button el-button--primary is-round">بیشتر</a>
-                    </div>
-                  </div> 
-                </div>           
-                @endforeach
-            </div>
-            <h1 class="pb-2 pt-4">پست‌ها</h1>
-            <div class="row">
-                @foreach ($events as $event)
-                <div class="col-sm-4 p-2">
-                  <div class="card">
-                    <img src="/img/gallery/img{{ $event->id }}.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">{{ $event->title }}</h5>
-                      <p class="card-text">{{ str_limit($event->summery, $limit = 60, $end = '...') }}</p>
-                      <a href="/event/{{ $event->id }}" class="el-button el-button--primary is-round">بیشتر</a>
-                    </div>
-                  </div> 
-                </div>           
-                @endforeach
-            </div>
-    
-          </div>
-        </div>
+    </div>
 
 
 @endsection

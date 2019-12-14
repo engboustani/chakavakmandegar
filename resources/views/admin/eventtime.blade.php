@@ -3,7 +3,8 @@
 @section('title', 'زمان ایونت')
 
 @section('content')
-    @if ($id == 0)
+
+    @if (isset($event_id))
 
     <div class="page-head">
             <h2 class="page-head-title">زمان جدید</h2>
@@ -13,8 +14,11 @@
                 <li class="active">زمان جدید</li>
             </ol>
     </div>    
-        
-    @else
+
+    @endif
+
+    @if (isset($id))
+
     <div class="page-head">
         <h2 class="page-head-title">ویرایش زمان</h2>
         <ol class="breadcrumb page-head-nav">
@@ -26,6 +30,11 @@
         
     @endif
     <div class="main-content container-fluid">
-    <eventtime id="{{$id}}"></eventtime>
+        @if (isset($id))
+        <eventtime :id="{{$id}}"></eventtime>        
+        @endif
+        @if (isset($event_id))
+        <eventtime :event_id="{{$event_id}}"></eventtime>        
+        @endif
     </div>
 @endsection

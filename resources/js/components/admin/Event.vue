@@ -22,19 +22,40 @@
             </div>
 
             <div class="form-group">
-                <label for="pictures">عکس‌ها</label>
+                <label for="pictures">سربرگ</label>
                 <div class="card">
                     <div class="card-body">
                         <el-upload
-                            action="/api/event/image-upload"
-                            list-type="picture-card"
-                            :on-preview="handlePictureCardPreview"
-                            :on-remove="handleRemove">
-                            <i class="el-icon-plus"></i>
+                            class="avatar-uploader"
+                            action="/api/media/image-upload"
+                            :headers="{Authorization: token}"
+                            :show-file-list="false"
+                            :on-success="handleHeaderSuccess"
+                            :before-upload="beforeHeaderUpload">
+                            <img v-if="headerUrl" :src="headerUrl" class="header-avatar">
+                            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                         </el-upload>
-                        <el-dialog :visible.sync="dialogVisible">
-                            <img width="100%" :src="dialogImageUrl" alt="">
-                        </el-dialog>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="pictures">گالری</label>
+                <div class="card">
+                    <div class="card-body">
+                        <label for="select_gallery">گالری مورد نظر را انتخاب کنید</label>
+                        <el-select v-model="gallery_value" clearable placeholder="انتخاب">
+                            <el-option
+                                v-for="item in gallery_options"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                            </el-option>
+                        </el-select>
+                        <el-button icon="el-icon-plus" circle></el-button>
+                        <gallery-widget v-if="gallery_value">
+                        </gallery-widget>
+
                     </div>
                 </div>
             </div>
@@ -61,7 +82,7 @@
                     <div class="card-body">
                         <el-upload
                             class="avatar-uploader"
-                            action="/api/event/image-upload"
+                            action="/api/media/image-upload"
                             :headers="{Authorization: token}"
                             :show-file-list="false"
                             :on-success="handleAvatarSuccess"
@@ -80,7 +101,7 @@
                     </div>
                     <div class="card-body" v-else>
                         <eventtimeWidget v-for="eventtime in eventtimes" v-bind:key="eventtime.id" :eventtime="eventtime"></eventtimeWidget>
-                        <eventtimeWidget></eventtimeWidget>
+                        <eventtimeWidget :event_id="id"></eventtimeWidget>
                     </div>
                 </div>
             </div>
@@ -92,10 +113,12 @@
 const moment = require('jalali-moment');
 import shared from '../../shared';
 import eventtimeWidget from './EventtimeWidget';
+import Editor from '@tinymce/tinymce-vue';
 
 export default {
     components: {
-        eventtimeWidget
+        eventtimeWidget,
+        Editor
     },
     computed: {
         token : function(){ return this.$store.state.token }
@@ -113,7 +136,12 @@ export default {
             dialogImageUrl: '',
             dialogVisible: false,
             eventtimes: [],
-            imageUrl: ''
+            imageUrl: '',
+            headerUrl: '',
+            thumbnailId: 0,
+            headerId: 0,
+            gallery_options: [],
+            gallery_value: ''
         }
     },
     mounted: function() {
@@ -124,8 +152,17 @@ export default {
                 this.content = resp.data.content;
                 this.summery = resp.data.summery;
                 this.eventtimes = resp.data.eventtime;
+                if (resp.data.thumbnail_model != null) {
+                    this.imageUrl = `/media/${resp.data.thumbnail_model.address}`;
+                    this.thumbnailId = resp.data.thumbnail_model.id;                    
+                }
+                if (resp.data.header_model != null) {
+                    this.headerUrl = `/media/${resp.data.header_model.address}`;
+                    this.headerId = resp.data.header_model.id;                    
+                }
                 this.created_at = this.constructor(moment(resp.data.created_at).locale('fa').format('YYYY/M/D H:m'));
                 this.updated_at = this.constructor(moment(resp.data.updated_at).locale('fa').format('YYYY/M/D H:m'));
+                this.getGallery();
             })
             .catch(err => {
                 console.log('Error: can\'t make a new event!', err)
@@ -141,7 +178,8 @@ export default {
             this.dialogVisible = true;
         },
         handleAvatarSuccess(res, file) {
-            this.imageUrl = `/images/${res.image}`;
+            this.imageUrl = `/media/${res.address}`;
+            this.thumbnailId = res.id;
         },
         beforeAvatarUpload(file) {
             const isJPG = file.type === 'image/jpeg';
@@ -155,10 +193,26 @@ export default {
             }
             return isJPG && isLt2M;
         },
+        handleHeaderSuccess(res, file) {
+            this.headerUrl = `/media/${res.address}`;
+            this.headerId = res.id;
+        },
+        beforeHeaderUpload(file) {
+            const isJPG = file.type === 'image/jpeg';
+            const isLt2M = file.size / 1024 / 1024 < 2;
+
+            if (!isJPG) {
+                this.$message.error('فایل عکس باید JPG باشد!');
+            }
+            if (!isLt2M) {
+                this.$message.error('اندازه عکس بیشتر از 2MB نمیتواند باشد!');
+            }
+            return isJPG && isLt2M;
+        },
         sendEvent() {
             if (!this.id) {
-                const {title, content, summery} = this;
-                axios({url: '/api/event/new', data: {title, content, summery}, method: 'POST' })
+                const {title, content, summery, thumbnailId, headerId} = this;
+                axios({url: '/api/event/new', data: {title, content, summery, thumbnail_id: thumbnailId, header_id: headerId}, method: 'POST' })
                 .then(resp => {
                     window.location.href = `/admin/event/${resp.data.id}`;
                 })
@@ -168,8 +222,8 @@ export default {
             }
             else
             {
-                const {id, title, content, summery} = this
-                axios({url: '/api/event/update', data: {id, title, content, summery}, method: 'PUT' })
+                const {id, title, content, summery, thumbnailId, headerId} = this
+                axios({url: '/api/event/update', data: {id, title, content, summery, thumbnail_id: thumbnailId, header_id: headerId}, method: 'PUT' })
                 .then(resp => {
                     window.location.href = `/admin/event/${resp.data.id}`;
                 })
@@ -181,6 +235,16 @@ export default {
         constructor: shared.constructor,
         farsiDatetime: function(date) {
             return this.constructor(date);
+        },
+        getGallery: function() {
+            axios({url: `/api/gallery/list`, method: 'GET' })
+            .then(resp => {
+                this.gallery_options = resp.data;
+            })
+            .catch(err => {
+                console.log('Error: can\'t get list gallery!', err)
+            })
+
         }
 
     }    

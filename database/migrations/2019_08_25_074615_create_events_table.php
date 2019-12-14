@@ -19,6 +19,9 @@ class CreateEventsTable extends Migration
             $table->longText('content');
             $table->text('summery');
             $table->boolean('indexed')->default(true);
+            $table->integer('thumbnail_id')->nullable();
+            $table->integer('header_id')->nullable();
+            $table->integer('gallery_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

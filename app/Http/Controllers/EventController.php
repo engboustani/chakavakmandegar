@@ -11,7 +11,7 @@ class EventController extends Controller
 
     public function getList()
     {
-        $events = \App\Event::all();
+        $events = \App\Event::latest()->get();
         return $events->makeHidden(['updated_at', 'eventtime'])->toJson();
     }
 
@@ -22,6 +22,8 @@ class EventController extends Controller
         $event->title = $request->title;
         $event->content = $request->content;
         $event->summery = $request->summery;
+        $event->thumbnail_id = $request->thumbnail_id;
+        $event->header_id = $request->header_id;
 
         $event->save();
 
@@ -37,6 +39,23 @@ class EventController extends Controller
         return $event->toJson();
     }
 
+    public function getEventTitle($id)
+    {
+        $event = \App\Event::find($id);
+
+        if ($event != null) {
+            return response()->json([
+                'title' => $event->title
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'msg' => 'not found'
+            ], 500);
+        }
+    }
+
+
     public function updateEvent(Request $request)
     {
         $event = \App\Event::find($request->id);
@@ -44,6 +63,8 @@ class EventController extends Controller
         $event->title = $request->title;
         $event->content = $request->content;
         $event->summery = $request->summery;
+        $event->thumbnail_id = $request->thumbnail_id;
+        $event->header_id = $request->header_id;
 
         $event->save();
 

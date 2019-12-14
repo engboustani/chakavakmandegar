@@ -15,23 +15,13 @@ class CreateMediaTable extends Migration
     {
         Schema::create('media', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('url');
-            $table->boolean('thumbnail');
+            $table->string('uuid');
+            $table->string('address');
+            $table->string('type')->nullable();
+            $table->integer('gallery_id')->nullable();
+            $table->integer('gallery_sort')->nullable();
             $table->timestamps();
         });
-
-        Schema::create('event_media', function (Blueprint $table) {
-            $table->integer('event_id')->unsigned();
-            $table->integer('media_id')->unsigned();
-
-            $table->foreign('event_id')->references('id')->on('events')
-                ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('media_id')->references('id')->on('media')
-                ->onUpdate('cascade')->onDelete('cascade');
-
-            $table->primary(['event_id', 'media_id']);
-        });
-
     }
 
     /**
@@ -42,6 +32,5 @@ class CreateMediaTable extends Migration
     public function down()
     {
         Schema::dropIfExists('media');
-        Schema::dropIfExists('event_media');
     }
 }

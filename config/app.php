@@ -177,6 +177,7 @@ return [
 
         Zizaco\Entrust\EntrustServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
+        Ipecompany\Smsirlaravel\SmsirlaravelServiceProvider::class,
 
     ],
 
@@ -233,7 +234,7 @@ return [
         'jDate' => Morilog\Jalali\Facades\jDate::class,
         'jDateTime' => Morilog\Jalali\Facades\jDateTime::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
-
+        'Smsirlaravel' => Ipecompany\Smsirlaravel\SmsirlaravelFacade::class,
     ],
 
 ];

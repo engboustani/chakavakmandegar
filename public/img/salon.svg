@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="x" width="710" height="480">
+	<g board>
+		<rect x="15" y="370.3" width="682" height="94.7"/>
+		<text transform="matrix(1 0 0 1 355.0001 417.6496)" class="st1 st2 st3">صحنه</text>
+		<rect zoom-control="left" x="15" y="14.6" class="st4" width="250" height="339.6"/>
+		<text zoom-control="left" transform="matrix(1 0 0 1 141.8001 184.4502)" class="st1 st2 st3">چپ</text>
+		<rect zoom-control="center" x="274.5" y="14.6" class="st4" width="205.5" height="339.6"/>
+		<text zoom-control="center" transform="matrix(1 0 0 1 376.4998 184.4)" class="st1 st2 st3">مرکز</text>
+		<rect zoom-control="right" x="491.5" y="212.9" class="st4" width="205.5" height="141.4"/>
+		<text zoom-control="right" transform="matrix(1 0 0 1 593.4998 283.6001)" class="st1 st2 st3">راست</text>
+		<g seating-area="right" zoom-target="right">
+			<rect x="491.5" y="311.9" class="st0" width="35" height="42.3"/>
+			<rect x="533.7" y="311.9" class="st0" width="35" height="42.3"/>
+			<rect x="576" y="311.9" class="st0" width="35" height="42.3"/>
+			<rect x="618.3" y="311.9" class="st0" width="35" height="42.3"/>
+			<rect x="662" y="311.9" class="st0" width="35" height="42.3"/>
+			<rect x="491.5" y="262.4" class="st0" width="35" height="42.3"/>
+			<rect x="533.7" y="262.4" class="st0" width="35" height="42.3"/>
+			<rect x="576" y="262.4" class="st0" width="35" height="42.3"/>
+			<rect x="618.3" y="262.4" class="st0" width="35" height="42.3"/>
+			<rect x="662" y="262.4" class="st0" width="35" height="42.3"/>
+			<rect x="491.5" y="212.9" class="st0" width="35" height="42.3"/>
+			<rect x="533.7" y="212.9" class="st0" width="35" height="42.3"/>
+			<rect x="576" y="212.9" class="st0" width="35" height="42.3"/>
+			<rect x="618.3" y="212.9" class="st0" width="35" height="42.3"/>
+			<rect x="662" y="212.9" class="st0" width="35" height="42.3"/>
+		</g>
+		<g seating-area="center" zoom-target="center">
+			<rect x="57.3" y="311.9" class="st0" width="35" height="42.3"/>
+			<rect x="99.5" y="311.9" class="st0" width="35" height="42.3"/>
+			<rect x="141.8" y="311.9" class="st0" width="35" height="42.3"/>
+			<rect x="185.5" y="311.9" class="st0" width="35" height="42.3"/>
+			<rect x="230" y="311.9" class="st0" width="35" height="42.3"/>
+			<rect x="57.3" y="262.4" class="st0" width="35" height="42.3"/>
+			<rect x="99.5" y="262.4" class="st0" width="35" height="42.3"/>
+			<rect x="141.8" y="262.4" class="st0" width="35" height="42.3"/>
+			<rect x="185.5" y="262.4" class="st0" width="35" height="42.3"/>
+			<rect x="230" y="262.4" class="st0" width="35" height="42.3"/>
+			<rect x="15" y="212.8" class="st0" width="35" height="42.3"/>
+			<rect x="57.3" y="212.8" class="st0" width="35" height="42.3"/>
+			<rect x="99.5" y="212.8" class="st0" width="35" height="42.3"/>
+			<rect x="141.8" y="212.8" class="st0" width="35" height="42.3"/>
+			<rect x="185.5" y="212.8" class="st0" width="35" height="42.3"/>
+			<rect x="230" y="212.8" class="st0" width="35" height="42.3"/>
+			<rect x="15" y="163.3" class="st0" width="35" height="42.3"/>
+			<rect x="57.3" y="163.3" class="st0" width="35" height="42.3"/>
+			<rect x="99.5" y="163.3" class="st0" width="35" height="42.3"/>
+			<rect x="141.8" y="163.3" class="st0" width="35" height="42.3"/>
+			<rect x="185.5" y="163.3" class="st0" width="35" height="42.3"/>
+			<rect x="230" y="163.3" class="st0" width="35" height="42.3"/>
+			<rect x="15" y="113.7" class="st0" width="35" height="42.3"/>
+			<rect x="57.3" y="113.7" class="st0" width="35" height="42.3"/>
+			<rect x="99.5" y="113.7" class="st0" width="35" height="42.3"/>
+			<rect x="141.8" y="113.7" class="st0" width="35" height="42.3"/>
+			<rect x="185.5" y="113.7" class="st0" width="35" height="42.3"/>
+			<rect x="230" y="113.7" class="st0" width="35" height="42.3"/>
+			<rect x="15" y="64.1" class="st0" width="35" height="42.3"/>
+			<rect x="57.3" y="64.1" class="st0" width="35" height="42.3"/>
+			<rect x="99.5" y="64.1" class="st0" width="35" height="42.3"/>
+			<rect x="141.8" y="64.1" class="st0" width="35" height="42.3"/>
+			<rect x="185.5" y="64.1" class="st0" width="35" height="42.3"/>
+			<rect x="230" y="64.1" class="st0" width="35" height="42.3"/>
+			<rect x="15" y="14.6" class="st0" width="35" height="42.3"/>
+			<rect x="57.3" y="14.6" class="st0" width="35" height="42.3"/>
+			<rect x="99.5" y="14.6" class="st0" width="35" height="42.3"/>
+			<rect x="141.8" y="14.6" class="st0" width="35" height="42.3"/>
+			<rect x="185.5" y="14.6" class="st0" width="35" height="42.3"/>
+			<rect x="230" y="14.6" class="st0" width="35" height="42.3"/>
+		</g>
+		<g seating-area="left" zoom-target="left">
+			<rect seat id="101" x="274.5" y="311.9" class="st0" width="35" height="42.3"/>
+			<rect seat id="102" x="316.7" y="311.9" class="st0" width="35" height="42.3"/>
+			<rect seat id="103" x="359" y="311.9" class="st0" width="35" height="42.3"/>
+			<rect seat id="104" x="401.3" y="311.9" class="st0" width="35" height="42.3"/>
+			<rect seat id="105" x="445" y="311.9" class="st0" width="35" height="42.3"/>
+			<rect seat id="201" x="274.5" y="262.4" class="st0" width="35" height="42.3"/>
+			<rect seat id="202" x="316.7" y="262.4" class="st0" width="35" height="42.3"/>
+			<rect seat id="203" x="359" y="262.4" class="st0" width="35" height="42.3"/>
+			<rect seat id="204" x="401.3" y="262.4" class="st0" width="35" height="42.3"/>
+			<rect seat id="205" x="445" y="262.4" class="st0" width="35" height="42.3"/>
+			<rect seat id="301" x="274.5" y="212.8" class="st0" width="35" height="42.3"/>
+			<rect seat id="302" x="316.7" y="212.8" class="st0" width="35" height="42.3"/>
+			<rect seat id="303" x="359" y="212.8" class="st0" width="35" height="42.3"/>
+			<rect seat id="304" x="401.3" y="212.8" class="st0" width="35" height="42.3"/>
+			<rect seat id="305" x="445" y="212.8" class="st0" width="35" height="42.3"/>
+			<rect seat id="306" x="274.5" y="163.3" class="st0" width="35" height="42.3"/>
+			<rect seat id="401" x="316.7" y="163.3" class="st0" width="35" height="42.3"/>
+			<rect seat id="402" x="359" y="163.3" class="st0" width="35" height="42.3"/>
+			<rect seat id="403" x="401.3" y="163.3" class="st0" width="35" height="42.3"/>
+			<rect seat id="404" x="445" y="163.3" class="st0" width="35" height="42.3"/>
+			<rect seat id="405" x="274.5" y="113.7" class="st0" width="35" height="42.3"/>
+			<rect seat id="406" x="316.7" y="113.7" class="st0" width="35" height="42.3"/>
+			<rect seat id="501" x="359" y="113.7" class="st0" width="35" height="42.3"/>
+			<rect seat id="502" x="401.3" y="113.7" class="st0" width="35" height="42.3"/>
+			<rect seat id="503" x="445" y="113.7" class="st0" width="35" height="42.3"/>
+			<rect seat id="504" x="274.5" y="64.1" class="st0" width="35" height="42.3"/>
+			<rect seat id="505" x="316.7" y="64.1" class="st0" width="35" height="42.3"/>
+			<rect seat id="506" x="359" y="64.1" class="st0" width="35" height="42.3"/>
+			<rect seat id="601" x="401.3" y="64.1" class="st0" width="35" height="42.3"/>
+			<rect seat id="602" x="445" y="64.1" class="st0" width="35" height="42.3"/>
+			<rect seat id="603" x="274.5" y="14.6" class="st0" width="35" height="42.3"/>
+			<rect seat id="604" x="316.7" y="14.6" class="st0" width="35" height="42.3"/>
+			<rect seat id="605" x="359" y="14.6" class="st0" width="35" height="42.3"/>
+			<rect seat id="606" x="401.3" y="14.6" class="st0" width="35" height="42.3"/>
+			<rect seat id="607" x="445" y="14.6" class="st0" width="35" height="42.3"/>
+		</g>
+	</g>
+</svg>

@@ -42,10 +42,11 @@ import shared from '../../shared';
 
 export default {
     props: {
-        eventtime: Object
+        eventtime: Object,
+        event_id: Number
     },
     methods: {
-        newEventtime() {window.location.href = '/admin/eventtime/new';},
+        newEventtime() {window.location.href = `/admin/eventtime/new?for=${this.event_id}`;},
         goEventtime(id) {window.location.href = `/admin/eventtime/${id}`;},
         constructor: shared.constructor,
         jalaliStart() {

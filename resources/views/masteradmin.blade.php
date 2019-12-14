@@ -7,6 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>مدیریت چکاوک ماندگار - @yield('title')</title>
     <link rel="stylesheet" href="/css/app.css" type="text/css"/>
     <link rel="stylesheet" href="/css/admin.css" type="text/css"/>

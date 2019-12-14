@@ -21,11 +21,38 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLoginForm()
+    {
+        return view('admin/login');
+    }
+
+    /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = 'admin';
+
+    /**
+    * Get the login username to be used by the controller.
+    *
+    * @return string
+    */
+    public function username()
+    {
+        $login = request()->input('login');
+
+        $field = preg_match('/^[0-9]{11}+$/', request()->input('login'))
+            ? 'phone' 
+            : 'email';
+        request()->merge([$field => $login]);
+
+        return $field;
+    }
 
     /**
      * Create a new controller instance.
@@ -34,37 +61,6 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
-    }
-
-    public function login(Request $request)
-    {
-        $this->validate($request, [
-            'login'    => 'required',
-            'password' => 'required',
-        ]);
-
-        $login_type = validate_mobile($request->input('login')) 
-            ? 'phone' 
-            : 'username';
-
-        $request->merge([
-            $login_type => $request->input('login')
-        ]);
-
-        if (Auth::attempt($request->only($login_type, 'password'))) {
-            return redirect()->intended($this->redirectPath());
-        }
-
-        return redirect()->back()
-            ->withInput()
-            ->withErrors([
-                'login' => 'These credentials do not match our records.',
-            ]);
-    }
-
-    public function validate_mobile($phone)
-    {
-        return preg_match('/^[0-9]{11}+$/', $phone);
+        $this->middleware('auth:admin');
     }
 }
