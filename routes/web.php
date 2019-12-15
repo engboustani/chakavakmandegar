@@ -103,6 +103,7 @@ Route::get('signup', 'ViewController@signup');
 Route::get('shop/{id}', 'ShopController@selectSeat');
 Route::get('payfactor/{id}', 'ShopController@payFactorView')->where('id', '[0-9]+');
 Route::get('paymentfailed', 'ViewController@paymentfailed');
+Route::get('paymentsuccessful/{id}', 'ViewController@paymentsuccessful');
 Route::get('shop/factor/{id}/print', 'ShopController@printFactor');
 
 Route::get('course/{id}', 'ViewController@course');

@@ -25,25 +25,56 @@ export default {
         factor_id: Number
     },
     mounted: function() {
-        axios({url: '/api/shop/pay', data: {factor_id: this.factor_id}, method: 'POST' })
-            .then(resp => {
-                if(resp.data.status == 1)
-                {
-                    this.mode = 1;
-                }
-                if(resp.data.status == 2)
-                {
-                    window.location.href = resp.data.payment_url;
-                }
-                if(resp.data.status == 3)
-                {
-                    this.mode = 2;
-                }
+        if (this.authenticated) {
+            axios({url: '/api/shop/pay', data: {factor_id: this.factor_id}, method: 'POST' })
+                .then(resp => {
+                    if(resp.data.status == 1)
+                    {
+                        this.mode = 1;
+                    }
+                    if(resp.data.status == 2)
+                    {
+                        window.location.href = resp.data.payment_url;
+                    }
+                    if(resp.data.status == 3)
+                    {
+                        this.mode = 2;
+                    }
 
-            })
-            .catch(err => {
-                console.log('Error: can\'t send factor to pay!', err)
-            })
+                })
+                .catch(err => {
+                    console.log('Error: can\'t send factor to pay!', err)
+                })
+        }
+        else
+        {
+            axios({url: '/api/shop/pay-not-user', data: {factor_id: this.factor_id}, method: 'POST' })
+                .then(resp => {
+                    if(resp.data.status == 1)
+                    {
+                        this.mode = 1;
+                    }
+                    if(resp.data.status == 2)
+                    {
+                        window.location.href = resp.data.payment_url;
+                    }
+                    if(resp.data.status == 3)
+                    {
+                        this.mode = 2;
+                    }
+
+                })
+                .catch(err => {
+                    console.log('Error: can\'t send factor to pay!', err)
+                })
+        }
+    },
+    computed: {
+        authenticated: {
+            get: function() {
+                return this.$store.getters.isAuthenticated;
+            }
+        }
     }
 }
 </script>

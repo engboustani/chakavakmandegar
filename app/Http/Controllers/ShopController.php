@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Validator;
+use Illuminate\Support\Facades\Hash;
 
 class ShopController extends Controller
 {
@@ -95,6 +96,29 @@ class ShopController extends Controller
         ], 200);
     }
 
+    public function getFactorNotUser(Request $request)
+    {
+        $user = Auth::user();
+        $collection = \App\Seat::whereIn('number', $request->seats)->where('eventtime_id', $request->eventtime_id)->orderBy('created_at', 'desc')->get();
+        $array = array();
+        $sumprice = 0;
+        $totalprice = 0;
+        foreach ($collection as $key => $seat) {
+            $row = [
+                'id' => $seat->id,
+                'price' => $seat->price,
+            ];
+            array_push($array, $row);
+            $sumprice += $seat->price;
+            $totalprice = $sumprice;
+        }
+        return response()->json([
+            'seats' => $array,
+            'sum' => $sumprice,
+            'total' => $totalprice
+        ], 200);
+    }
+
     public function getSeats($id)
     {
         $tickets = \App\Ticket::where('eventtime_id', $id)->get();
@@ -125,6 +149,7 @@ class ShopController extends Controller
 
             $user = Auth::user();
             if ($user == null) {
+                return dd("test");
                 $validator = Validator::make($request->user, [
                     'firstname' => 'required|string|max:255',
                     'lastname' => 'required|string|max:255',
@@ -207,6 +232,80 @@ class ShopController extends Controller
         }
     }
 
+    public function makeFactorNotUser(Request $request)
+    {
+        if($this->checkSeats($request->tickets))
+        {
+            $factor = new \App\Factor;
+
+            $validator = Validator::make($request->user, [
+                'firstname' => 'required|string|max:255',
+                'lastname' => 'required|string|max:255',
+                'iranid' => ['required', 'string', new \App\Rules\Iranian],
+                'phone' => ['required', 'string', new \App\Rules\IranPhone],
+            ]);
+    
+            if ($validator->fails()) {
+                return response()->json([
+                    'msg' => $validator,
+                ], 500);
+            }
+
+            $user = \App\User::where('iranid', $request->user['iranid'])->first();
+            if ($user == null) {
+                $user = \App\User::where('phone', $request->user['phone'])->first();
+                if ($user == null) {
+                    $user = new \App\User([
+                        'firstname' => $request->user['firstname'],
+                        'lastname' => $request->user['lastname'],
+                        'iranid' => $request->user['iranid'],
+                        'phone' => $request->user['phone'],
+                        'password' => Hash::make(Str::random(10))
+                    ]);
+            
+                    $user->save();                                        
+                }
+            }
+
+            $factor->user_id = $user->id;
+                
+            try {
+                $factor->save();
+                foreach ($request->tickets as $key => $seat) {
+                    $ticket = new \App\Ticket;
+                    $seatElq = \App\Seat::find($seat['id']);
+    
+                    $ticket->seat_id = $seat['id'];
+                    $ticket->user_id = $factor->user_id;
+                    $ticket->firstname = $user->firstname;
+                    $ticket->lastname = $user->lastname;
+                    $ticket->phone = $user->phone;
+                    $ticket->eventtime_id = $seatElq->eventtime_id;
+                    $ticket->factor_id = $factor->id;
+    
+                    $ticket->save();
+                }
+    
+            }
+            catch(Exception $e)
+            {
+                return response()->json([
+                    'error' => $e,
+                ], 500);
+    
+            }
+            return response()->json([
+                'factor_id' => $factor->id,
+            ], 201);
+        }
+        else
+        {
+            return response()->json([
+                'error' => 'Tickets reserved!',
+            ], 500);
+        }
+    }
+
     public function payFactor(Request $request)
     {
         $factor = \App\Factor::find($request->factor_id);
@@ -237,6 +336,19 @@ class ShopController extends Controller
                 ], 200);
             }
         }
+    }
+
+    public function payFactorNotUser(Request $request)
+    {
+        $factor = \App\Factor::find($request->factor_id);
+
+        $amount = $factor->bill - $factor->user->credit;
+        $url = $this->newPayment($factor, $amount);
+
+        return response()->json([
+            'status' => 2,
+            'payment_url' => $url,
+        ], 200);
     }
 
     private function checkSeats($seats)

@@ -180,6 +180,9 @@ Route::group([
     'prefix' => 'shop'
 ], function () {
     Route::get('seats/{id}', 'ShopController@getSeats');
+    Route::post('factor-not-user', 'ShopController@getFactorNotUser');
+    Route::post('make-not-user', 'ShopController@makeFactorNotUser');
+    Route::post('pay-not-user', 'ShopController@payFactorNotUser');
     Route::group([
         'middleware' => ['auth:api','role:owner|admin|auther|client']
     ], function() {

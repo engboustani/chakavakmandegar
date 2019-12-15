@@ -313,68 +313,94 @@ export default {
     },
     methods: {
         checkFactor: function() {
-            axios({url: '/api/shop/factor', data: {seats: this.listSelectedSeats, eventtime_id: this.eventtime_id, discount_code: this.discountCode}, method: 'POST' })
-                .then(resp => {
-                    this.listTickets = resp.data.seats;
-                    this.sumPrice = resp.data.sum;
-                    this.discountPer = resp.data.discount_per;
-                    this.discountValue = resp.data.discount_value;
-                    this.totalPrice = resp.data.total;
-                    switch (resp.data.discount_status) {
-                        case -1:
-                            this.$notify.error({
-                                title: 'خطا',
-                                message: 'کد تخفیف اشتباه است'
-                            });
-                            this.discountCode = '';
-                            break;
-                        case -2:
-                            this.$notify.error({
-                                title: 'خطا',
-                                message: 'کد تخفیف قبلا استفاده شده'
-                            });
-                            this.discountCode = '';
-                            break;
-                        case -3:
-                            this.$notify.error({
-                                title: 'خطا',
-                                message: 'کد تخفیف دیگر معتبر نیست'
-                            });
-                            this.discountCode = '';
-                            break;
-                        case 1:
-                            this.$notify({
-                                title: 'موفق',
-                                message: 'کد تخفیف اعمال شد',
-                                type: 'success'
-                            });
-                            this.discountDisabled = true;
-                            break;                    
-                        default:
-                            break;
-                    }
-                })
-                .catch(err => {
-                    console.log('Error: can\'t get factor!', err)
-                })
-
+            if (!this.authenticated) {
+                axios({url: '/api/shop/factor-not-user', data: {seats: this.listSelectedSeats, eventtime_id: this.eventtime_id}, method: 'POST' })
+                    .then(resp => {
+                        this.listTickets = resp.data.seats;
+                        this.sumPrice = resp.data.sum;
+                        this.totalPrice = resp.data.total;
+                    })
+                    .catch(err => {
+                        console.log('Error: can\'t get factor!', err)
+                    })
+            }
+            else
+            {
+                axios({url: '/api/shop/factor', data: {seats: this.listSelectedSeats, eventtime_id: this.eventtime_id, discount_code: this.discountCode}, method: 'POST' })
+                    .then(resp => {
+                        this.listTickets = resp.data.seats;
+                        this.sumPrice = resp.data.sum;
+                        this.discountPer = resp.data.discount_per;
+                        this.discountValue = resp.data.discount_value;
+                        this.totalPrice = resp.data.total;
+                        switch (resp.data.discount_status) {
+                            case -1:
+                                this.$notify.error({
+                                    title: 'خطا',
+                                    message: 'کد تخفیف اشتباه است'
+                                });
+                                this.discountCode = '';
+                                break;
+                            case -2:
+                                this.$notify.error({
+                                    title: 'خطا',
+                                    message: 'کد تخفیف قبلا استفاده شده'
+                                });
+                                this.discountCode = '';
+                                break;
+                            case -3:
+                                this.$notify.error({
+                                    title: 'خطا',
+                                    message: 'کد تخفیف دیگر معتبر نیست'
+                                });
+                                this.discountCode = '';
+                                break;
+                            case 1:
+                                this.$notify({
+                                    title: 'موفق',
+                                    message: 'کد تخفیف اعمال شد',
+                                    type: 'success'
+                                });
+                                this.discountDisabled = true;
+                                break;                    
+                            default:
+                                break;
+                        }
+                    })
+                    .catch(err => {
+                        console.log('Error: can\'t get factor!', err)
+                    })
+            }
         },
         payFactor: function() {
             this.loadingPay = true;
             var user = {};
             if(!this.authenticated) {            
                 user = {firstname: this.firstnameTicket, lastname: this.lastnameTicket, iranid: this.iranidTicket, phone: this.phoneTicket};
-            }
-            axios({url: '/api/shop/make', data: {tickets: this.listTickets, discount_code: this.discountCode, user: user}, method: 'POST' })
-                .then(resp => {
-                    this.loadingPay = false;
-                    this.disabledPay = true;
+                axios({url: '/api/shop/make-not-user', data: {tickets: this.listTickets, user: user}, method: 'POST' })
+                    .then(resp => {
+                        this.loadingPay = false;
+                        this.disabledPay = true;
 
-                    window.location.href = `/payfactor/${resp.data.factor_id}`;
-                })
-                .catch(err => {
-                    console.log('Error: can\'t send factor to pay!', err)
-                })
+                        window.location.href = `/payfactor/${resp.data.factor_id}`;
+                    })
+                    .catch(err => {
+                        console.log('Error: can\'t send factor to pay!', err)
+                    })
+            }
+            else
+            {
+                axios({url: '/api/shop/make', data: {tickets: this.listTickets, discount_code: this.discountCode}, method: 'POST' })
+                    .then(resp => {
+                        this.loadingPay = false;
+                        this.disabledPay = true;
+
+                        window.location.href = `/payfactor/${resp.data.factor_id}`;
+                    })
+                    .catch(err => {
+                        console.log('Error: can\'t send factor to pay!', err)
+                    })
+            }
         },
         goBack: function () {
             this.d3sc.goToBoard();

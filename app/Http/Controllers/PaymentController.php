@@ -50,9 +50,9 @@ class PaymentController extends Controller
             $payment->save();
             $payment->chargeUser();
 
-            return redirect("/shop/15");
+            return redirect("/");
         } catch (VerifyException $e) {
-            return redirect("/shop/15?paymentfailed=1");
+            return redirect("/paymentfailed");
         }
     }
 
@@ -70,8 +70,23 @@ class PaymentController extends Controller
             $payment->save();
             $payment->chargeUser();
 
-            return redirect("/payfactor/{$factor_id}?gosign=1");
+            $factor = \App\Factor::find($factor_id);
+            $charge = new \App\Charge;
+
+            $charge->type = 2;
+            $charge->user_id = $factor->user_id;
+            $charge->amount = -1 * $this->factorBill($factor);
+            $charge->factor_id = $factor->id;
+    
+            $charge->save();
+    
+            $factor->paid_by = $charge->id;
+            $factor->save();
+
+            return redirect("/paymentsuccessful/{$factor_id}");
         } catch (VerifyException $e) {
+            $deletedTickets = \App\Ticket::where('factor_id', $factor_id)->delete();     
+
             return redirect("/paymentfailed");
         }
     }
@@ -111,4 +126,30 @@ class PaymentController extends Controller
         $userid = Auth::id();
         return \App\Payment::where('user_id', $userid)->latest()->get()->makeHidden(['submited_by', 'factor_id', 'token', 'updated_at', 'user', 'username'])->toJson();
     }
+
+    private function factorBill($factor)
+    {
+        $discount_per = 0;
+        $sumprice = 0;
+        $discount_value = 0;
+        $totalprice = 0;
+        if($factor->discount_id != null)
+        {
+            $discount = \App\Discount::find($factor->discount_id);
+            if(($discount->factors->where('user_id', Auth::id())->count() == 0)
+                && ($discount->used_count <= $discount->use_count)
+                && (Carbon::now() <= $discount->expired_at))
+            {
+                $discount_per = $discount->percentage;
+            }
+        }
+        foreach ($factor->tickets as $key => $ticket) {
+            $sumprice += $ticket->seat->price;
+        }
+        $discount_value = $sumprice * ($discount_per / 100);
+        $totalprice = $sumprice - $discount_value;
+
+        return $totalprice;
+    }
+
 }

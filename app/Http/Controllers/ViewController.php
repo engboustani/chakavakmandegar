@@ -170,4 +170,9 @@ class ViewController extends Controller
     {
         return view('paymentfailed');
     }
+
+    public function paymentsuccessful()
+    {
+        return view('paymentsuccessful');
+    }
 }
