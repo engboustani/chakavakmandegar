@@ -22,15 +22,7 @@
               </div>
           </div>
       </div>
-    <div class="row align-items-center">
-      <div class="col-sm-12 text-center zoomheader align-items-center signuphome zoom-in">
-        <div class="row my-5" style="display: block;">
-          <h3 class="font-weight-light white home-title font-weight-bold"><span class="p-2"><span class="black-background">ثبت نام کنید</span></span></h3>
-          <p class="lead white home-title font-weight-bold"><span class="p-2"><span class="black-background">با ثبت‌نام در سایت چکاوک ماندگار از اخرین اخبار آگاه شوید و تخفیف بگیرید</span></span></p>
-          <p><a class="btn btn-light" href="/signup" role="button">ثبت نام</a></p>    
-        </div>
-      </div>
-    </div>
+      <widget-home-login></widget-home-login>
 
 
 @endsection

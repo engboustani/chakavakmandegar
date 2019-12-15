@@ -55,6 +55,7 @@ Vue.component('editor', Editor);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('ticket-shop', require('./components/TicketShop.vue').default);
 Vue.component('login-modal', require('./components/LoginModal.vue').default);
+Vue.component('login-view', require('./components/Login.vue').default);
 Vue.component('navbar-button', require('./components/Navbar.vue').default);
 Vue.component('signup-form', require('./components/Signup.vue').default);
 Vue.component('main-slider', require('./components/MainSlider.vue').default);
@@ -65,6 +66,7 @@ Vue.component('pay-factor', require('./components/PayFactor.vue').default);
 Vue.component('tickets-user', require('./components/Tickets.vue').default);
 Vue.component('payments-user', require('./components/Payments.vue').default);
 Vue.component('course-signup', require('./components/Course.vue').default);
+Vue.component('widget-home-login', require('./components/WidgetHomeLogin.vue').default);
 
 // Admin Components
 Vue.component('sidebar-admin', require('./components/admin/SidebarNav.vue').default);
