@@ -140,7 +140,7 @@ ul.el-menu li.el-submenu ul.el-menu li.el-submenu ul.el-menu {
     position: relative;
     overflow: hidden;
     display: block;
-    line-height: 1.2;
+    line-height: 1.5;
 }
 
 .home-title > span::after{
