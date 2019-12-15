@@ -109,7 +109,7 @@ const iranID = (value) => {
     sum %= 11;
     return (sum < 2 && check == sum) || (sum >= 2 && check + sum == 11);
 }
-const phone = helpers.regex('phone', RegExp("09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}"));
+const phone = helpers.regex('phone', /^(?:(\u0660\u0669[\u0660-\u0669][\u0660-\u0669]{8})|(\u06F0\u06F9[\u06F0-\u06F9][\u06F0-\u06F9]{8})|(09[0-9][0-9]{8}))$/g);
 
 export default {
     mixins: [validationMixin],
