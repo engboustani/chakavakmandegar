@@ -36,7 +36,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, email, helpers, or } from 'vuelidate/lib/validators'
-const phone = helpers.regex('login', RegExp("09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}"))
+const phone = helpers.regex('phone', /^(?:(\u0660\u0669[\u0660-\u0669][\u0660-\u0669]{8})|(\u06F0\u06F9[\u06F0-\u06F9][\u06F0-\u06F9]{8})|(09[0-9][0-9]{8}))$/g);
 const iranID = (value) => {
     if (!/^\d{10}$/.test(value)
 || value=='0000000000'

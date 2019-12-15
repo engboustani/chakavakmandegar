@@ -25,7 +25,7 @@ class IranPhone implements Rule
      */
     public function passes($attribute, $value)
     {
-        if(preg_match('/^09[0-9]{9}$/',$value))
+        if(preg_match('/^(09[0-9][0-9]{8})$/',$value))
             return true;
         return false;
     }
