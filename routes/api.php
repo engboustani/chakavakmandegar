@@ -179,13 +179,13 @@ Route::group([
 Route::group([
     'prefix' => 'shop'
 ], function () {
+    Route::get('seats/{id}', 'ShopController@getSeats');
     Route::group([
         'middleware' => ['auth:api','role:owner|admin|auther|client']
     ], function() {
         Route::post('pay', 'ShopController@payFactor');
         Route::post('make', 'ShopController@makeFactor');
         Route::post('factor', 'ShopController@getFactor');
-        Route::get('seats/{id}', 'ShopController@getSeats');
     });  
 });
 
