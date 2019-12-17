@@ -173,6 +173,6 @@ class ViewController extends Controller
 
     public function paymentsuccessful()
     {
-        return view('paymentsuccessful');
+        return view('paysuccessful');
     }
 }
