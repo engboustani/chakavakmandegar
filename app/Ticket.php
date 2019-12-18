@@ -25,12 +25,12 @@ class Ticket extends Model
 
     public function getEventNameAttribute()
     {
-        return $this->eventtime()->event()->title;
+        return $this->eventtime->event->title;
     }
 
     public function getEventtimeStartAttribute()
     {
-        return $this->eventtime()->start;
+        return $this->eventtime->start;
     }
 
     public function getFullnameAttribute()
