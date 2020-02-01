@@ -34,7 +34,7 @@
       <div class="row">
           @foreach ($sanse as $san)
           <div class="col-sm-4 p-2">
-            <div class="card {{ $san['disable'] ? 'disabled' : ''}}">
+            <div class="card {{ $san['disable'] ? 'bg-light' : ''}}">
               <div class="card-body">
                 <p class="card-text">{{ $san['startday'] }}</p>
                 <p class="card-text"><small class="text-muted">ساعت {{ $san['starttime'] }} الی {{ $san['endtime'] }}</small></p>
