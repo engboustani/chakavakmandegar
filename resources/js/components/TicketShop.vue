@@ -159,7 +159,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-md-6 mb-2">
-                  <div class="form-group" :class="{ 'form-group--error': $v.firstname.$error }">
+                  <div class="form-group">
                     <label for="firstname">نام</label>
                     <input
                       type="text"
@@ -167,14 +167,12 @@
                       id="firstnameTicket"
                       v-model="firstnameTicket"
                       placeholder="First name"
-                      v-model.trim="$v.firstname.$model"
                       required
                     />
                   </div>
-                  <div class="error" v-if="!$v.firstname.required">باید کامل شود</div>
                 </div>
                 <div class="col-md-6 mb-2">
-                  <div class="form-group" :class="{ 'form-group--error': $v.lastname.$error }">
+                  <div class="form-group">
                     <label for="lastname">نام خانوادگی</label>
                     <input
                       type="text"
@@ -182,14 +180,12 @@
                       id="lastnameTicket"
                       v-model="lastnameTicket"
                       placeholder="Last name"
-                      v-model.trim="$v.lastname.$model"
                       required
                     />
                   </div>
-                  <div class="error" v-if="!$v.lastname.required">باید کامل شود</div>
                 </div>
                 <div class="col-md-6 mb-2">
-                  <div class="form-group" :class="{ 'form-group--error': $v.iranid.$error }">
+                  <div class="form-group"\>
                     <label for="iranid">کد ملی</label>
                     <input
                       type="text"
@@ -197,14 +193,12 @@
                       id="iranidTicket"
                       v-model="iranidTicket"
                       placeholder="Identification"
-                      v-model.trim="$v.iranid.$model"
                       required
                     />
                   </div>
-                  <div class="error" v-if="!$v.iranid.required">باید کامل شود</div>
                 </div>
                 <div class="col-md-6 mb-2">
-                  <div class="form-group" :class="{ 'form-group--error': $v.phone.$error }">
+                  <div class="form-group">
                     <label for="phone">شماره همراه</label>
                     <input
                       type="text"
@@ -212,11 +206,9 @@
                       id="phoneTicket"
                       v-model="phoneTicket"
                       placeholder="09xxxxxxxxx"
-                      v-model.trim="$v.phone.$model"
                       required
                     />
                   </div>
-                  <div class="error" v-if="!$v.phone.required">باید کامل شود</div>
                 </div>
               </div>
             </div>
@@ -566,20 +558,6 @@ export default {
       }
     }
   },
-  validations: {
-    firstname: {
-      required,
-    },
-    lastname: {
-      required,
-    },
-    iranid: {
-      required,
-    },
-    phone: {
-      required,
-    },
-  }
 };
 </script>
 
