@@ -79,6 +79,7 @@ class ShopController extends Controller
         foreach ($collection as $key => $seat) {
             $row = [
                 'id' => $seat->id,
+                'seat' => $seat->number,
                 'price' => $seat->price,
             ];
             array_push($array, $row);
