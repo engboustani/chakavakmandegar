@@ -185,7 +185,7 @@
                   </div>
                 </div>
                 <div class="col-md-6 mb-2">
-                  <div class="form-group"\>
+                  <div class="form-group">
                     <label for="iranid">کد ملی</label>
                     <input
                       type="text"
@@ -306,8 +306,6 @@ import {
 import Ticket from "./Ticket";
 import shared from "../shared";
 const moment = require("jalali-moment");
-import { validationMixin } from "vuelidate";
-const { required } = require("vuelidate/lib/validators");
 
 export default {
   props: {
@@ -557,7 +555,7 @@ export default {
         return this.$store.getters.isAuthenticated;
       }
     }
-  },
+  }
 };
 </script>
 
