@@ -2,7 +2,7 @@
     <div class="col-md-3">
         <div class="card mb-3">
             <div class="card-body">
-                <h5 class="mb-3"><i class="el-icon-s-ticket mr-2"></i>تیکت صندلی شماره {{ticket.number}}</h5>
+                <h5 class="mb-3"><i class="el-icon-s-ticket mr-2"></i>تیکت صندلی شماره {{ticket.seat}}</h5>
             </div>
             <div class="card-footer text-muted">
                 {{constructor(ticket.price)}} تومان
