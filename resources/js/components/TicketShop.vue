@@ -318,7 +318,6 @@ import { validationMixin } from "vuelidate";
 const { required } = require("vuelidate/lib/validators");
 
 export default {
-  mixins: [validationMixin],
   props: {
     eventtime_id: Number
   },
