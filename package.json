@@ -34,6 +34,7 @@
         "perfect-scrollbar": "^1.4.0",
         "persianjs": "^0.4.0",
         "tiny-slider": "^2.9.2",
+        "vee-validate": "^3.2.4",
         "vue-chartjs": "^3.4.2",
         "vue-cookies": "^1.5.13",
         "vue-editor-js": "^0.4.0",

@@ -157,60 +157,74 @@
         <div class="col-12">
           <div class="card bg-light mb-3">
             <div class="card-body">
+              <ValidationObserver ref="form">
               <div class="row">
                 <div class="col-md-6 mb-2">
                   <div class="form-group">
                     <label for="firstname">نام</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="firstnameTicket"
-                      v-model="firstnameTicket"
-                      placeholder="First name"
-                      required
-                    />
+                    <validation-provider rules="required" v-slot="v">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="firstnameTicket"
+                        v-model="firstnameTicket"
+                        placeholder="First name"
+                        required
+                      />
+                      <span>{{ v.errors[0] }}</span>
+                    </validation-provider>
                   </div>
                 </div>
                 <div class="col-md-6 mb-2">
                   <div class="form-group">
                     <label for="lastname">نام خانوادگی</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="lastnameTicket"
-                      v-model="lastnameTicket"
-                      placeholder="Last name"
-                      required
-                    />
+                    <validation-provider rules="required" v-slot="v">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="lastnameTicket"
+                        v-model="lastnameTicket"
+                        placeholder="Last name"
+                        required
+                      />
+                      <span>{{ v.errors[0] }}</span>
+                    </validation-provider>
                   </div>
                 </div>
                 <div class="col-md-6 mb-2">
                   <div class="form-group">
                     <label for="iranid">کد ملی</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="iranidTicket"
-                      v-model="iranidTicket"
-                      placeholder="Identification"
-                      required
-                    />
+                    <validation-provider rules="required|iranid" v-slot="v">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="iranidTicket"
+                        v-model="iranidTicket"
+                        placeholder="Identification"
+                        required
+                      />
+                      <span>{{ v.errors[0] }}</span>
+                    </validation-provider>
                   </div>
                 </div>
                 <div class="col-md-6 mb-2">
                   <div class="form-group">
                     <label for="phone">شماره همراه</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="phoneTicket"
-                      v-model="phoneTicket"
-                      placeholder="09xxxxxxxxx"
-                      required
-                    />
+                    <validation-provider rules="required|phone" v-slot="v">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="phoneTicket"
+                        v-model="phoneTicket"
+                        placeholder="09xxxxxxxxx"
+                        required
+                      />
+                      <span>{{ v.errors[0] }}</span>
+                    </validation-provider>
                   </div>
                 </div>
               </div>
+                </ValidationObserver>
             </div>
           </div>
         </div>
@@ -306,13 +320,65 @@ import {
 import Ticket from "./Ticket";
 import shared from "../shared";
 const moment = require("jalali-moment");
+import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
+import { required } from 'vee-validate/dist/rules';
+const iranID = (value) => {
+    if (!/^\d{10}$/.test(value)
+|| value=='0000000000'
+|| value=='1111111111'
+|| value=='2222222222'
+|| value=='3333333333'
+|| value=='4444444444'
+|| value=='5555555555'
+|| value=='6666666666'
+|| value=='7777777777'
+|| value=='8888888888'
+|| value=='9999999999')
+        return false;
+    var check = parseInt(value[9]);
+    var sum = 0;
+    var i;
+    for (i = 0; i < 9; ++i) {
+        sum += parseInt(value[i]) * (10 - i);
+    }
+    sum %= 11;
+    return (sum < 2 && check == sum) || (sum >= 2 && check + sum == 11);
+}
+const phone = (value) => {
+  var re = /^(?:(\u0660\u0669[\u0660-\u0669][\u0660-\u0669]{8})|(\u06F0\u06F9[\u06F0-\u06F9][\u06F0-\u06F9]{8})|(09[0-9][0-9]{8}))$/g;
+  return re.test(value);
+}
+
+extend('required', {
+    validate (value) {
+      return {
+        required: true,
+        valid: ['', null, undefined].indexOf(value) === -1
+      };
+    },
+    message: 'این فیلد باید وارد شود',
+    computesRequired: true
+  });
+
+extend('iranid', {
+  message: 'کد ملی اشتباه می‌باشد',
+  validate: iranID
+});
+
+extend('phone', {
+  message: 'شماره همراه اشتباه می‌باشد',
+  validate: phone
+});
+
 
 export default {
   props: {
     eventtime_id: Number
   },
   components: {
-    Ticket
+    Ticket,
+    ValidationProvider,
+    ValidationObserver
   },
   data: function() {
     return {
@@ -455,26 +521,32 @@ export default {
       this.loadingPay = true;
       var user = {};
       if (!this.authenticated) {
-        user = {
-          firstname: this.firstnameTicket,
-          lastname: this.lastnameTicket,
-          iranid: this.iranidTicket,
-          phone: this.phoneTicket
-        };
-        axios({
-          url: "/api/shop/make-not-user",
-          data: { tickets: this.listTickets, user: user },
-          method: "POST"
-        })
-          .then(resp => {
-            this.loadingPay = false;
-            this.disabledPay = true;
+        this.$refs.form.validate().then(success => {
+              user = {
+                firstname: this.firstnameTicket,
+                lastname: this.lastnameTicket,
+                iranid: this.iranidTicket,
+                phone: this.phoneTicket
+              };
+              axios({
+                url: "/api/shop/make-not-user",
+                data: { tickets: this.listTickets, user: user },
+                method: "POST"
+              })
+                .then(resp => {
+                  this.loadingPay = false;
+                  this.disabledPay = true;
 
-            window.location.href = `/payfactor/${resp.data.factor_id}`;
-          })
-          .catch(err => {
-            console.log("Error: can't send factor to pay!", err);
-          });
+                  window.location.href = `/payfactor/${resp.data.factor_id}`;
+                })
+                .catch(err => {
+                  this.$notify.error({
+                    title: 'خطا',
+                    message: 'عدم دسترسی به واحد پرداز!'
+                  });
+                  console.log("Error: can't send factor to pay!", err);
+                });
+        });
       } else {
         axios({
           url: "/api/shop/make",
@@ -488,6 +560,10 @@ export default {
             window.location.href = `/payfactor/${resp.data.factor_id}`;
           })
           .catch(err => {
+            this.$notify.error({
+              title: 'خطا',
+              message: 'عدم دسترسی به واحد پرداز!'
+            });
             console.log("Error: can't send factor to pay!", err);
           });
       }
