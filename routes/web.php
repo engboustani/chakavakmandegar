@@ -117,3 +117,7 @@ Route::get('search', 'ViewController@search')->name('search');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login');
+
+Route::get('/debug-sentry', function () {
+    throw new Exception('My first Sentry error!');
+});
