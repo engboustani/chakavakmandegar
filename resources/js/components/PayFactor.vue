@@ -31,6 +31,7 @@ export default {
                     if(resp.data.status == 1)
                     {
                         this.mode = 1;
+                        
                     }
                     if(resp.data.status == 2)
                     {

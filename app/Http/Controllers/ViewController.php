@@ -171,8 +171,22 @@ class ViewController extends Controller
         return view('paymentfailed');
     }
 
-    public function paymentsuccessful()
+    public function paymentsuccessful($id)
     {
-        return view('paysuccessful');
+        $factor = \App\Factor::find($id);
+        $tickets = $factor->tickets;
+        $ticketsview = array();
+        foreach ($tickets as $ticket) {
+            $eventtime = $ticket->eventtime;
+            $startday = Jalalian::forge($eventtime->start)->format('%A, %d %B %y');
+            $startday = CalendarUtils::convertNumbers($startday);
+            $starttime = Jalalian::forge($eventtime->start)->format('%H:%M');
+            $starttime = CalendarUtils::convertNumbers($starttime);
+            $endtime = Jalalian::forge($eventtime->end)->format('%H:%M');
+            $endtime = CalendarUtils::convertNumbers($endtime);
+            array_push($ticketsview, array('id' => $ticket->id, 'title' => $eventtime->event->title, 'startday' => $startday, 'starttime' => $starttime, 'endtime' => $endtime, 'firstname' => $ticket->firstname, 'lastname' => $ticket->lastname, 'seat' => $ticket->seat->number));
+        }
+
+        return view('paysuccessful', ['tickets' => $ticketsview]);
     }
 }

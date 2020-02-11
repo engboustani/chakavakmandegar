@@ -121,3 +121,19 @@ Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::get('/debug-sentry', function () {
     throw new Exception('My first Sentry error!');
 });
+
+Route::get('qrcode', function () {
+
+    \QrCode::size(500)
+  
+              ->format('png')
+  
+              ->generate('ItSolutionStuff.com', public_path('images/qrcode.png'));
+  
+      
+  
+    return view('qrCode');
+  
+      
+  
+  });

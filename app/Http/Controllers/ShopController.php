@@ -319,10 +319,13 @@ class ShopController extends Controller
                 $charge_id = $this->discharge($factor);
                 $factor->paid_by = $charge_id;
                 $factor->save();
+
+                $tickets = $factor->tickets;
                 
                 return response()->json([
                     'status' => 1,
-                    'msg' => "با موفقیت پرداخت شد"
+                    'msg' => "با موفقیت پرداخت شد",
+                    'tickets' => $tickets
                 ], 200);
             }
             else

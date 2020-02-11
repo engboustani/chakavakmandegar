@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@sentry/browser": "^5.12.1",
         "@tinymce/tinymce-vue": "^3.0.1",
         "chart.js": "^2.8.0",
         "d3-seating-chart": "^2.1.0",
