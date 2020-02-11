@@ -15,12 +15,12 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4">
-                                    {!! QrCode::size(200)->generate($ticket['id']); !!}
+                                    {!! QrCode::size(200)->generate($ticket['code']); !!}
                                 </div>
                                 <div class="col-md-8">
                                     <div class="row">
                                         <div class="col-md-12 my-2">
-                                            <h4>شماره تیکت: {{ $ticket['id'] }}</h4>
+                                            <h4>شماره تیکت: {{ $ticket['code'] }}</h4>
                                         </div>
                                         <div class="col-md-6 my-2">
                                             <h5>نمایش: {{ $ticket['title'] }}</h5>

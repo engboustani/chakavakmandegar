@@ -184,7 +184,9 @@ class ViewController extends Controller
             $starttime = CalendarUtils::convertNumbers($starttime);
             $endtime = Jalalian::forge($eventtime->end)->format('%H:%M');
             $endtime = CalendarUtils::convertNumbers($endtime);
-            array_push($ticketsview, array('id' => $ticket->id, 'title' => $eventtime->event->title, 'startday' => $startday, 'starttime' => $starttime, 'endtime' => $endtime, 'firstname' => $ticket->firstname, 'lastname' => $ticket->lastname, 'seat' => $ticket->seat->number));
+            $sha = sha1((string)$ticket->id);
+            $code = "CHK-" . substr($sha, 0, 7);
+            array_push($ticketsview, array('id' => $ticket->id, 'code' => $code, 'title' => $eventtime->event->title, 'startday' => $startday, 'starttime' => $starttime, 'endtime' => $endtime, 'firstname' => $ticket->firstname, 'lastname' => $ticket->lastname, 'seat' => $ticket->seat->number));
         }
 
         return view('paysuccessful', ['tickets' => $ticketsview]);
