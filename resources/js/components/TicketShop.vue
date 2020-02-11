@@ -542,9 +542,10 @@ export default {
                 .catch(err => {
                   this.$notify.error({
                     title: 'خطا',
-                    message: 'عدم دسترسی به واحد پرداز!'
+                    message: 'مشخصات را درست وارد کنید!'
                   });
                   console.log("Error: can't send factor to pay!", err);
+                  this.loadingPay = false;
                 });
         });
       } else {
@@ -562,9 +563,10 @@ export default {
           .catch(err => {
             this.$notify.error({
               title: 'خطا',
-              message: 'عدم دسترسی به واحد پرداز!'
+              message: 'مشخصات را درست وارد کنید!'
             });
             console.log("Error: can't send factor to pay!", err);
+            this.loadingPay = false;
           });
       }
     },
