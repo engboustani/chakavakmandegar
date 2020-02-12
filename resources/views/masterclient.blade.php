@@ -65,6 +65,7 @@
             <div class="col-12 col-md">
               <img class="mb-2" src="/img/mainlogo.jpg" height="70">
               <img class="mb-2" src="/img/pelatologo.jpg" height="70">
+              <script id='payir-trust-script' src='https://cdn.pay.ir/js/trust-logo.js' data-id='133319' data-logo='1'></script>
               <small class="d-block mb-3 text-muted">چکاوک ماندگار© 2017-2018</small>
               <small class="d-block mb-3 text-muted">طراحی و پیاده‌سازی حکیم‌رایانه</small>
             </div>
