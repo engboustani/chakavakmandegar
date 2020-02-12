@@ -171,7 +171,7 @@
                         placeholder="First name"
                         required
                       />
-                      <span>{{ v.errors[0] }}</span>
+                      <span class="my-1 text-danger">{{ v.errors[0] }}</span>
                     </validation-provider>
                   </div>
                 </div>
@@ -187,7 +187,7 @@
                         placeholder="Last name"
                         required
                       />
-                      <span>{{ v.errors[0] }}</span>
+                      <span class="my-1 text-danger">{{ v.errors[0] }}</span>
                     </validation-provider>
                   </div>
                 </div>
@@ -203,7 +203,7 @@
                         placeholder="Identification"
                         required
                       />
-                      <span>{{ v.errors[0] }}</span>
+                      <span class="my-1 text-danger">{{ v.errors[0] }}</span>
                     </validation-provider>
                   </div>
                 </div>
@@ -219,7 +219,7 @@
                         placeholder="09xxxxxxxxx"
                         required
                       />
-                      <span>{{ v.errors[0] }}</span>
+                      <span class="my-1 text-danger">{{ v.errors[0] }}</span>
                     </validation-provider>
                   </div>
                 </div>
@@ -522,6 +522,15 @@ export default {
       var user = {};
       if (!this.authenticated) {
         this.$refs.form.validate().then(success => {
+          if (!success) {
+            this.loadingPay = false;
+            this.$notify.error({
+              title: 'خطا',
+              message: 'مشخصات را درست وارد کنید!'
+            });
+            console.log("Error: can't send factor to pay!", err);
+            return;
+          }
               user = {
                 firstname: this.firstnameTicket,
                 lastname: this.lastnameTicket,
