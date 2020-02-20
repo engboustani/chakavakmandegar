@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+// use Ipecompany\Smsirlaravel;
 use SaeedVaziry\Payir\Exceptions\SendException;
 use SaeedVaziry\Payir\Exceptions\VerifyException;
 use SaeedVaziry\Payir\PayirPG;
@@ -82,6 +83,13 @@ class PaymentController extends Controller
     
             $factor->paid_by = $charge->id;
             $factor->save();
+
+            // try {
+            //     $msg = "چکاوک ماندگار\n" . $factor->user->firstname . " عزیز خرید شما با موفقیت انجام شد";
+            //     Smsirlaravel::send([$msg],[$factor->user->phone]);
+            // } catch (Exception $e) {
+            //     //throw $th;
+            // }
 
             return redirect("/paymentsuccessful/{$factor_id}");
         } catch (VerifyException $e) {
