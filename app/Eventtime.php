@@ -16,7 +16,7 @@ class Eventtime extends Model
     }
 
     protected $appends = ['event_title'];
-    protected $hidden = ['seats', 'tickets', 'discounts', 'event'];
+    protected $hidden = ['seats', 'tickets', 'discounts'];
 
     public function getEventTitleAttribute()
     {
